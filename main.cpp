@@ -111,38 +111,65 @@ int main()
         cout << '[' << i << "] " << zombie[i];
     }
     cout << endl << "================================================" << endl;
-    for(int i=0;i<plant.size();++i)
+
+    while(true)
     {
-        cout << '[' << i << "] " ;
-        switch(plant[i]->type())
+        for(int i=0;i<plant.size();++i)
         {
-            case 'C':
-                cout << dynamic_cast<CoinPlant *>(plant[i]);
-            case 'S':
-                cout << dynamic_cast<HornPlant *>(plant[i]);
-            case 'B':
-                cout << dynamic_cast<BombPlant *>(plant[i]);
-            case 'H':
-                cout << dynamic_cast<HealPlant *>(plant[i]);
+            cout << '[' << i << "] " ;
+            switch(plant[i]->type())
+            {
+                case 'C':
+                    cout << dynamic_cast<CoinPlant *>(plant[i]);
+                case 'S':
+                    cout << dynamic_cast<HornPlant *>(plant[i]);
+                case 'B':
+                    cout << dynamic_cast<BombPlant *>(plant[i]);
+                case 'H':
+                    cout << dynamic_cast<HealPlant *>(plant[i]);
+            }
+            cout << endl;
         }
-        cout << endl;
-    }
-    cout << endl << *player;
-    int choice = plant.size();
-    cout << ":    Enter your choice (" << choice << " to give up, default: " << choice << ")...>";
+        cout << endl << *player;
+        int choice = plant.size();
+        cout << ":    Enter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
 
-    switch(plant[choice].type())
-    {
-    case 'C':
-        land->plant(CoinPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
-    case 'S':
-        land->plant(HornPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
-    case 'B':
-        land->plant(BombPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
-    case 'H':
-        land->plant(HealPlant(*dynamic_cast<CoinPlant *>(plant[choice])))
+        if(choice=plant.size()) break;
+        int cost=0;
+        string plantname;
+        switch(plant[choice].type())
+        {
+        case 'C':
+            CoinPlant *tmp = new CoinPlant(*dynamic_cast<CoinPlant *>(plant[choice]))
+            land->plant(tmp);
+            plantname="CoinPlant";
+            cost=tmp->price();
+        case 'S':
+            HornPlant *tmp = new HornPlant(*dynamic_cast<CoinPlant *>(plant[choice]))
+            land->plant(tmp);
+            plantname="HornPlant";
+            cost=tmp->price();
+        case 'B':
+            BombPlant *tmp = new BombPlant(*dynamic_cast<CoinPlant *>(plant[choice]));
+            land->plant(tmp);
+            plantname="BombPlant";
+            cost=tmp->price();
+        case 'H':
+            HealPlant *tmp = new HealPlant(*dynamic_cast<CoinPlant *>(plant[choice]));
+            land->plant(tmp);
+            plantname="HealPlant";
+            cost=tmp->price();
+        }
+        if(player->money() >= cost)
+        {
+            cout << "You have planted " << plantname << " at land 7 !";
+            break;
+        }
+        else
+        {
+            cout << "Not enough money! Please input again.";
+        }
     }
-
 
     // destruct
     while(!plant.empty())
