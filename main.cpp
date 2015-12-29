@@ -44,5 +44,18 @@ int main()
     }
     const int ZOMBIES=value;
 
+    //game rules
+    cout << "=============================================================================" << endl
+         << "Plants vs. Zombies Rule:" << endl
+         << endl
+         << "How to win:" << endl
+         << "  (1) All zombies are dead." << endl
+         << "  (2) At least one plant is live." << endl
+         << "  (3) The number of dead bomb plants cannot exceed the number of zombies." << endl
+         << endl
+         << "How to lose:" << endl
+         << "  All plants are dead." << endl
+         << "=============================================================================" << endl;
+
     return 0;
 }
