@@ -7,11 +7,11 @@ using namespace std;
 
 int main()
 {
-    cout << "-------------------------------" << endl
+    cout << " -----------------------------" << endl
          //<< "|                             |" << endl
          << "|     Plants v.s Zombies      |" << endl
          //<< "|                             |" << endl
-         << "-------------------------------" << endl;
+         << " -----------------------------" << endl;
     constexpr int LAND_DEFAULT=8;
     constexpr int LAND_MAX=10;
     constexpr int LAND_MIN=1;
