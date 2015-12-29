@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -56,6 +57,8 @@ int main()
          << "How to lose:" << endl
          << "  All plants are dead." << endl
          << "=============================================================================" << endl;
+    system("pause");
+    system("cls");
 
     return 0;
 }
