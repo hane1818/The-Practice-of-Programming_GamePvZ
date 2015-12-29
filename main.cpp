@@ -131,6 +131,18 @@ int main()
     int choice = plant.size();
     cout << ":    Enter your choice (" << choice << " to give up, default: " << choice << ")...>";
 
+    switch(plant[choice].type())
+    {
+    case 'C':
+        land->plant(CoinPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
+    case 'S':
+        land->plant(HornPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
+    case 'B':
+        land->plant(BombPlant(*dynamic_cast<CoinPlant *>(plant[choice])));
+    case 'H':
+        land->plant(HealPlant(*dynamic_cast<CoinPlant *>(plant[choice])))
+    }
+
 
     // destruct
     while(!plant.empty())
