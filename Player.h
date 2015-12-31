@@ -15,8 +15,8 @@ public:
     {
         Position_=index;
     }
-    const int Pos( return Position_;);
-    const int Money( return Money_;);
+    const int Pos(){return Position_;};
+    const int Money(){return Money_;};
     void GetPlant(const int index)
     {
 
