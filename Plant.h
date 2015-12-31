@@ -19,7 +19,10 @@ public:
     {
 
     };
-    virtual ~Plant() {};
+    virtual ~Plant()
+    {
+        std::cout<<"End"<<std::endl;
+    };
     void Attack() {}
     void Damage(int hurt)
     {
@@ -29,7 +32,7 @@ public:
     {
         return (hp_>0);
     }
-    std::string* DerivedPlant(std::fstream & ifs);
+    void DerivedPlant(std::fstream & ifs,std::string buffer[]);
 private:
     std::string name_;
     const int price_=0;
@@ -43,12 +46,21 @@ class CoinPlant:public Plant
 public:
     CoinPlant(std::fstream &ifs)
     {
-        std::string *buffer;
-        buffer=DerivedPlant(ifs);
-        for(int i=0;i<buffer.size();++i)
-        {}
+        std::string buffer[6];
+        DerivedPlant(ifs,buffer);
+        for(int i=0;i<6;++i)
+        {
+            std::cout<<buffer[i]<<" <----- "<<std::endl;
+        }
+        std::string name=buffer[1];
+        int price=atoi(buffer[2].substr(1,buffer[2].size()).c_str());
+        int hp=atoi(buffer[3].c_str());
+        Plant p(name,price,hp);
     };
-    ~CoinPlant() {};
+    ~CoinPlant()
+    {
+        std::cout<<"Destruct"<<std::endl;
+    };
 private:
     int round_=2;
     int giveMoney_=100;
@@ -62,7 +74,7 @@ public:
 
     HornPlant(std::fstream & ifs)
     {
-        DerivedPlant(ifs);
+        //DerivedPlant(ifs);
     };
     ~HornPlant() {};
 private:
@@ -78,7 +90,7 @@ public:
 
     BombPlant(std::fstream & ifs)
     {
-        DerivedPlant(ifs);
+        //DerivedPlant(ifs);
     };
     ~BombPlant() {};
 private:
@@ -93,7 +105,7 @@ public:
 
     HealPlant(std::fstream &ifs)
     {
-        DerivedPlant(ifs);
+       // DerivedPlant(ifs);
     };
     ~HealPlant() {};
 private:

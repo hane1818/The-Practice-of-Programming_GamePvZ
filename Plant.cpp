@@ -1,12 +1,11 @@
 #include"Plant.h"
 using namespace std;
-string* Plant::DerivedPlant(fstream & ifs)
+void Plant::DerivedPlant(fstream & ifs,string buffer[])
 {
     std::string str;
     getline(ifs,str);
     std::stringstream ss(str);
     string sub;
-    string buffer[10];
     int i=0;
     while(getline(ss,sub,' '))
     {
@@ -15,7 +14,4 @@ string* Plant::DerivedPlant(fstream & ifs)
         ++i;
     }
     cout<<endl;
-    return buffer;
-
-
 }
