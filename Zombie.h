@@ -3,6 +3,16 @@
 
 #include<cstdio>
 #include<iostream>
+class Player
+{
+private:
+    int pos_;
+    int money_;
+public:
+    Player():pos_(0){};
+    const int Pos()const{return pos_;};
+    void Move(const int i){pos_ = i;};
+};
 
 class Zombie
 {
@@ -17,8 +27,8 @@ public:
     const int Hp() const { return hp_;};
     const int Attack() const {  return attack_;};
     const int Pos() const { return pos_;};
-    void Move(int index){  pos_ = index;};
-    bool Damage(int damage){ hp_ -= damage;};
+    void Move(const int index){  pos_ = index;};
+    void Damage(const int damage){ hp_ -= damage;};
     bool isAlive(){return (hp_ > 0);};
 };
 int Zombie::TotalNum;
