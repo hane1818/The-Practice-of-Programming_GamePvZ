@@ -3,26 +3,25 @@
 
 #include<cstdio>
 #include<iostream>
-class Player
-{
-private:
-    int pos_;
-    int money_;
-public:
-    Player():pos_(0){};
-    const int Pos()const{return pos_;};
-    void Move(const int i){pos_ = i;};
-};
 
 class Zombie
 {
 private:
+    int pos_;
     int hp_;
     int attack_;
-    int pos_;
 public:
     static int TotalNum;
-    Zombie():hp_(30),attack_(15),pos_(0){};
+    Zombie():pos_(0),hp_(15),attack_(0){};
+    Zombie(const int pos,const int hp,const int attack):pos_(pos),hp_(hp),attack_(attack){};
+    Zombie(Zombie & z){};
+    Zombie & operator = (const Zombie & rhs)
+    {
+        pos_ = rhs.pos_;
+        hp_ = rhs.hp_;
+        attack_ = rhs.attack_;
+        return (*this);
+    }
     ~Zombie(){};
     const int Hp() const { return hp_;};
     const int Attack() const {  return attack_;};
@@ -33,10 +32,10 @@ public:
 };
 int Zombie::TotalNum;
 
-std::ostream & operator << (std::ostream & os, const Zombie &x)
+std::ostream & operator << (std::ostream & os, const Zombie &z)
 {
-    os << "Damage: " << x.Attack() << " HP:";
-    for(int i = 0;i<x.Hp();i++)
+    os << "Damage: " << z.Attack() << " HP:";
+    for(int i = 0;i < z.Hp() ;++i)
     {
         os << "*";
     }

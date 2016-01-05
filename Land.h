@@ -5,32 +5,6 @@
 #include<cstring>
 #include<iostream>
 
-class Plant
-{
-protected:
-    std::string name_ = "\0";
-    int price_=0;
-    int hp_=50;
-public:
-    Plant()=default;
-    Plant(const std::string name,const int price,const int hp):name_(name),price_(price),hp_(hp)
-    {
-
-    };
-    virtual void Display()const
-    {
-        std::cout << name_;
-    }
-};
-
-class CoinPlant: public Plant
-{
-public:
-    CoinPlant():Plant("CoinPlant",50,50)
-    {
-
-    }
-};
 /*Land: Is it empty. Which plants it has. plant a plant on it*/
 class Land
 {
@@ -38,16 +12,25 @@ private:
     Plant plant_;
     bool isEmpty_;
 public:
-    Land():plant_(),isEmpty_(true){};
-    ~Land(){};
-    bool IsEmpty()
+    Land():plant_(),isEmpty_(true) {};
+    Land(Plant & x):plant_(x),isEmpty_(false) {};
+    Land(Land & x) {};
+    Land & operator = (const Land & rhs)
+    {
+        plant_ = rhs.plant_;
+        isEmpty_ = rhs.isEmpty_;
+        return (*this);
+    }
+    ~Land() {};
+    bool IsEmpty() //Is the land empty?
     {
         return (isEmpty_);
     }
-    void Planting(Plant & x)
+    void Planting(Player &p , const Plant & x) // Plant sth in the land
     {
         plant_ = x;
         isEmpty_ = false;
+        p.Spend(x.Price());
     }
     void Print()
     {

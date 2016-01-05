@@ -3,6 +3,7 @@
 
 #include<cstdio>
 #include<iostream>
+#include<cstdlib>
 
 class Map
 {
@@ -21,22 +22,34 @@ public:
         map_ = nullptr;
         size_ = 0;
     };
-    Land * GetLand(const int index)
+    Land * GetLand(const int index)const //Get land index and Return land's address
     {
         return &map_[index];
     }
-    void Display(Player &p , Zombie * z)
+
+    const int Rand(Player & p)const //Move player and Return index
+    {
+        int index = rand() % size_ ;
+        p.Move(index);
+        return index;
+    }
+
+    const int Rand(Zombie & z)const //Move a zombie and Return index
+    {
+        int index = rand() % size_ ;
+        z.Move(index);
+        return index;
+    }
+
+    void Display(Player &p , Zombie * z)const //Display Game Board
     {
         for(int i=0;i<size_;i++)
         {
-            std::cout << "[" << i << "]{";
-            std::cout << ((p.Pos()==i) ? "*" : " ");
+            std::cout << "[" << i << "]{" << ((p.Pos()==i) ? "*" : " ");
             for(int j=0;j<Zombie::TotalNum;j++)
             {
-                if((z[j].Pos() == i))
-                    std::cout << j;
-                else
-                    std::cout << " ";
+                if((z[j].Pos() == i))std::cout << j;
+                else std::cout << " ";
             }
             std::cout << "}";
             GetLand(i)->Print();

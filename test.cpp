@@ -1,4 +1,6 @@
 #include"Zombie.h"
+#include"Plant.h"
+#include"Player.h"
 #include"Land.h"
 #include"Map.h"
 #include<cstdlib>
@@ -8,6 +10,7 @@ using namespace std;
 int main()
 {
     srand(time(0));
+    constexpr int COUNT = 5;
     int lands = 0;
     cout << "Number of lands on the map.";
     cin >> lands;
@@ -17,58 +20,34 @@ int main()
     Map map(lands);
     Player p;
     Zombie * z = new Zombie[Zombie::TotalNum];
-    CoinPlant c;
+
     /*Set pos*/
     p.Move(rand()%lands);
     for(int i=0;i<Zombie::TotalNum;i++)
         z[i].Move(rand()%lands);
-
     /*Display*/
-    cout << "Before"<< endl;
     map.Display(p,z);
-
-
-    delete []z;
-    /*Land a;
-    CoinPlant b;
-    CoinPlant c;
-    for(int i=0; i<2; i++)
+    /*Plainting*/
+    Plant x("Plant",50,50);
+    for(int i=0;i<COUNT;i++)
     {
-        if(a.IsEmpty())
+        if(p.Money()>0)
         {
-            a.Planting(b);
-            std::cout << "Land A is planted b" << std::endl;
-        }
-        else
-        {
-            std::cout << "Land A was planted b" << std::endl;
-        }
-    }*/
-
-    /*Zombie * a = new Zombie[ZOMBIE]();
-    Zombie::TotalNum = ZOMBIE;
-    for(int i=0; i<ZOMBIE; i++)
-    {
-        a[i].Move(rand()%LAND);
-        std::cout << a[i].Pos() << " ";
-        std::cout << a[i];
-    }
-
-    for(Zombie::TotalNum; Zombie::TotalNum > 0;)
-    {
-        for(int i=0; i<Zombie::TotalNum; i++)
-        {
-            int damage = rand()% 20;
-            a[i].Damage(damage);
-            std::cout << "[" << i << "]" << " " << a[i];
-            if( !a[i].isAlive())
+            if(map.GetLand(p.Pos())->IsEmpty())
             {
-                Zombie::TotalNum --;
-                std::cout << "It is dead" << std::endl;
+                cout << "p's money:" << p.Money() << endl;
+                map.GetLand(p.Pos())->Planting(p,x);
+                cout << "p plant a plant." << endl;
             }
         }
+        cout << "p move to " << map.Rand(p) << endl<< endl;
+        for(int j=0;j<Zombie::TotalNum;j++)
+            cout << "z[" << j << "] move to " << map.Rand(z[j]) << endl;
+        map.Display(p,z);
         system("pause");
-    }*/
+        system("cls");
+    }
 
+    delete []z;
     return 0;
 }
