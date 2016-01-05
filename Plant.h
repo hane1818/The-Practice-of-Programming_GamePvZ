@@ -14,6 +14,7 @@ class Plant
         os<<p.name_<<" "<<"HP: "<<p.hp_;
         return os;
     }
+
 public:
     Plant()=default;
     Plant(const std::string name,const int price=0,const int hp=0):name_(name),price_(price),hp_(hp)
@@ -25,15 +26,15 @@ public:
     {
         std::cout<<"~Plant()"<<std::endl;
     };
-    void Damage(const int hurt){hp_-=hurt;}
-    bool isAlive(){return (hp_>0);}
-    const std::string Name(){return name_;}
-    const int Price(){return price_;}
-    const int Hp(){return hp_;}
-    const char Type(){return type_;}
-    virtual void Print(){}
+    void Damage(const int hurt) {hp_-=hurt;}
+    bool isAlive()const {return (hp_>0);}
+    const std::string Name()const {return name_;}
+    const int Price()const {return price_;}
+    const int Hp()const {return hp_;}
+    const char Type()const {return type_;}
+    virtual void Print()const {}
 protected:
-    void readFile(std::fstream & ifs,std::string buffer[]);
+    void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='/0';
     std::string name_;
     int price_=0;
@@ -55,12 +56,12 @@ public:
     {
         std::cout<<"~CoinPlant()"<<std::endl;
     }
-    virtual void Print()
+    virtual void Print()const
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<giveMoney_<<" every "<<round_<<" rounds";
     }
-    const int Round(){return round_;}
-    const int GiveMoney(){return giveMoney_;}
+    const int Round()const {return round_;}
+    const int GiveMoney()const {return giveMoney_;}
 private:
     int round_=0;
     int giveMoney_=0;
@@ -81,11 +82,11 @@ public:
     {
         std::cout<<"~HornPlant"<<std::endl;
     }
-    virtual void Print()
+    virtual void Print()const
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
     }
-    const int Damage(){return damage_;}
+    const int Damage()const {return damage_;}
 private:
     int damage_=0;
 };
@@ -104,7 +105,7 @@ public:
     {
         std::cout<<"~BombPlant"<<std::endl;
     }
-    virtual void Print()
+    virtual void Print()const
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<hp_<<" damage points";
     }
@@ -125,11 +126,11 @@ public:
     {
         std::cout<<"~HealPlant"<<std::endl;
     }
-    virtual void Print()
+    virtual void Print()const
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives all your plants "<<hpBack_<<" HP back.";
     }
-    const int HpBack(){return hpBack_;}
+    const int HpBack()const {return hpBack_;}
 private:
     int hpBack_=0;
 };
