@@ -17,7 +17,7 @@ public:
     }
     const int Pos(){return Position_;}
     const int Money(){return Money_;}
-    void CostMoney(const int cost){Money-=cost;}
+    void CostMoney(const int cost){Money_-=cost;}
 private:
     int Money_=150;
     int Position_=0;
