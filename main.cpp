@@ -135,6 +135,12 @@ int main()
             cout << endl << "Player $" << player->Money() ;
             cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
         }
+        // end game condition
+        /*if (BombPlant::DeadNum >= ZOMBIES/2)
+        {
+            cout << "You lose the game since you cannot use that many bomb plants!" << endl;
+            break;
+        }*/
     }
 
 
