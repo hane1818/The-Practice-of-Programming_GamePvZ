@@ -29,7 +29,7 @@ public:
     virtual void Print()const =0;
     virtual const int Round()const {return 0;}//CoinPlant
     virtual const int GiveMoney()const{return 0;}//CoinPlant
-    virtual int Attack()const {return 0;}//HornPlant
+    virtual const int Attack()const {return 0;}//HornPlant
     virtual const int HpBack()const {return 0;}//HealPlant
     virtual bool Visit(){return 0;}//CoinPlant::return true=>AddMoney;BombPlant::return true =>zombie hp=0;
 protected:
@@ -96,7 +96,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
     }
-    virtual int Attack()const {return damage_;}
+    virtual const int Attack()const {return damage_;}
 private:
     int damage_=0;//attack zombie
 };
