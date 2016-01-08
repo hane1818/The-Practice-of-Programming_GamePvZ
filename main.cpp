@@ -2,11 +2,12 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
-//#include <vector>
-//#include <fstream>
+#include <vector>
+#include <fstream>
 #include "Map.h"
 #include "Zombie.h"
 #include "Player.h"
+#include "Plant.h"
 
 using namespace std;
 
@@ -70,45 +71,50 @@ int main()
     Zombie *zombie = new Zombie[ZOMBIES];
     Zombie::TotalNum = ZOMBIES;
     Map *map = new Map(LANDS);
-    /*vector<Plant*> plant;
-    ifstream fin=open("plants.txt");
-    while(!fin.eof())
+    vector<Plant*> plant;
+    fstream fin("plants.txt", fstream::in);
+    string str;
+    if(fin)
     {
-        char type;
-        fin << type;
-        if(fin.eof()) break;
-        Plant *tmp = nullptr;
-        switch(type)
+        while(fin >> str)
         {
-        case 'C':
+            Plant *tmp = nullptr;
+            switch(str[0])
+            {
+            case 'C':
             {
                 tmp = new CoinPlant(fin);
+                break;
             }
-        case 'S':
+            case 'S':
             {
                 tmp = new HornPlant(fin);
+                break;
             }
-        case 'B':
+            case 'B':
             {
                 tmp = new BombPlant(fin);
+                break;
             }
-        case 'H':
+            case 'H':
             {
                 tmp = new HealPlant(fin);
+                break;
             }
-        default:
-            continue;
+            default:
+                continue;
+            }
+            if(tmp)
+            {
+                plant.push_back(tmp);
+            }
         }
-        if(tmp)
-        {
-            plant.push_back(tmp);
-        }
-    }*/
+    }
 
     map->Display(*player, zombie);  //cout << *map << endl;
     cout << "------------------------------------------------" << endl;
     cout << "Zombie information:" << endl;
-    for(int i=0;i<ZOMBIES;i++)
+    for(int i=0; i<ZOMBIES; i++)
     {
         cout << '[' << i << "] " << zombie[i];
     }
@@ -172,10 +178,12 @@ int main()
             cout << "Not enough money! Please input again.";
         }
     }*/
-
     // destruct
-    //while(!plant.empty())
-    //    delete plant.pop_back();
+    while(!plant.empty())
+    {
+        delete plant.back();
+        plant.pop_back();
+    }
     delete player;
     delete map;
     delete [] zombie;
