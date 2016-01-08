@@ -66,8 +66,8 @@ public:
         roundtimes_++;
         if(roundtimes_==round_)
         {
-            return true;
             roundtimes_=0;
+            return true;
         }
         return false;
     }
