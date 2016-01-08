@@ -1,8 +1,8 @@
 #ifndef ZOMBIE__
 #define ZOMBIE__
 
-#include<cstdio>
-#include<iostream>
+#include <cstdio>
+#include <iostream>
 
 class Zombie
 {
