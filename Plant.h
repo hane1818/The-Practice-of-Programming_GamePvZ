@@ -6,6 +6,9 @@
 //==========================================================//
 #ifndef PLANT_H_
 #define PLANT_H_
+#include <iostream>
+#include <string>
+#include <fstream>
 class Plant
 {
     friend std::ostream & operator << (std::ostream &os, const Plant &p)
