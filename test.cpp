@@ -27,10 +27,13 @@ int main()
         z[i].Move(rand()%lands);
 
     /*Display*/
+    if(map.IsNonPlant())
+    {
+        cout << "The map is so clear!" << endl;
+    }
     map.Display(p,z);
     /*Plainting*/
     HealPlant x("HealPlant",50,50,10);
-    cout <<  << endl;
     for(int i=0;i<COUNT;i++)
     {
         if(p.Money()>0)

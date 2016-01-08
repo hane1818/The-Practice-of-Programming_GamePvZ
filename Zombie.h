@@ -13,6 +13,7 @@ private:
 public:
     static int TotalNum;
     Zombie():pos_(0),hp_(15),attack_(0){};
+    Zombie(int position):pos_(position){};
     Zombie(const int pos,const int hp,const int attack):pos_(pos),hp_(hp),attack_(attack){};
     Zombie(Zombie & z){};
     Zombie & operator = (const Zombie & rhs)
