@@ -38,7 +38,7 @@ public:
     virtual const int HpBack()const =0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
-    char type_='/0';
+    char type_='\0';
     std::string name_;
     int price_=0;
     int hp_=0;
