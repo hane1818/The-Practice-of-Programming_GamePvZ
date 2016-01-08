@@ -122,7 +122,7 @@ int main()
     while(true)
     {
         printInfor(*map, *player, zombie);
-        while(true) {
+        do {
             if (!enoughMoney(plant, player))
             {
                 cout << "You don't have enough money to plant anything" << endl;
@@ -157,7 +157,7 @@ int main()
                 cout << "Not enough money! Please input again!" << endl;
                 system("pause");
             }
-        }
+        }while (true);
 
         int position;
         for (int i=0; i<ZOMBIES; ++i)
@@ -169,13 +169,14 @@ int main()
             if(!land->IsEmpty())
             {
                 Plant *p = land->GetPlant();
-                if(p->Damage())
+                if(p->Type()!='C') p->Visit();
+                if(p->Attack())
                 {
-                    zombie[i].Damage(p->Damage());
-                    cout << p->Name() << " gives " << p->Damage() << " damage to the zombie!" << endl;
+                    zombie[i].Damage(p->Attack());
+                    cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
                 }
                 p->Damage(zombie[i].Attack());
-                cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack();
+                cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
                 if(!zombie[i].isAlive())
                     cout << "Zombie is killed!" << endl;
                 if(!p->isAlive())
@@ -269,7 +270,7 @@ int main()
 
 bool allZombiesDie(const Zombie * zombie)
 {
-    for(size_t i=0; i<Zombie::TotalNum && !zombie[i].isAlive(); ++i)
+    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive(); ++i)
         return (i==Zombie::TotalNum-1);
 }
 
