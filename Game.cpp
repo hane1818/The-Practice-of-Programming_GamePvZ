@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include<vector>
 #include <cstdlib>
 #include"Plant.h"
 using namespace std;
@@ -39,9 +40,13 @@ int main()
             }
         }
     }
-    cout<<*plant[3]<<" *****"<<endl;
-    plant[3]->Print();
-    cout<<endl;
+    for(int i=0; i<4; ++i)
+    {
+        cout<<*plant[i]<<" *****"<<endl;
+        plant[i]->Print();
+        cout<<endl;
+    }
+
     while(!plant.empty())
     {
         delete plant.back();
