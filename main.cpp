@@ -116,9 +116,10 @@ int main()
     player->Move(rand()%LANDS);
     for (int i=0; i<ZOMBIES; ++i)
         zombie[i].Move(rand()%LANDS);
+
     while(true)
     {
-        map->Display(*player, zombie);  //cout << *map << endl;
+        map->Display(*player, zombie);
         cout << "------------------------------------------------" << endl;
         cout << "Zombie information:" << endl;
         for(int i=0; i<ZOMBIES; i++)
@@ -138,7 +139,13 @@ int main()
         {
             cout << endl << "Player $" << player->Money() ;
             cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
-            cin >> choice;
+            getline(cin, input);
+            if(!input.empty())
+            {
+                istringstream stream( input );
+                stream >> value;
+                if(value <= plant.size() && value >= 0) choice = value;
+            }
         }
 
         // end game condition
