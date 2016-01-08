@@ -140,28 +140,14 @@ int main()
         }
         cout << endl;
     }
+    int choice = plant.size();
+    cout << endl << *player;
+    cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
 
-    /*while(true)
-    {
-        for(int i=0;i<plant.size();++i)
-        {
-            cout << '[' << i << "] " ;
-            switch(plant[i]->Type())
-            {
-                case 'C':
-                    cout << dynamic_cast<CoinPlant *>(plant[i]);
-                case 'S':
-                    cout << dynamic_cast<HornPlant *>(plant[i]);
-                case 'B':
-                    cout << dynamic_cast<BombPlant *>(plant[i]);
-                case 'H':
-                    cout << dynamic_cast<HealPlant *>(plant[i]);
-            }
-            cout << endl;
-        }
-        cout << endl << *player;
-        int choice = plant.size();
-        cout << ":    Enter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+    /*
+
+
+
 
         if(choice=plant.size()) break;
         int cost=0;
