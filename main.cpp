@@ -111,24 +111,32 @@ int main()
         }
     }
 
-    map->Display(*player, zombie);  //cout << *map << endl;
-    cout << "------------------------------------------------" << endl;
-    cout << "Zombie information:" << endl;
-    for(int i=0; i<ZOMBIES; i++)
+    while(true)
     {
-        cout << '[' << i << "] " << zombie[i];
-    }
-    cout << endl << "================================================" << endl;
+        map->Display(*player, zombie);  //cout << *map << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << "Zombie information:" << endl;
+        for(int i=0; i<ZOMBIES; i++)
+        {
+            cout << '[' << i << "] " << zombie[i];
+        }
+        cout << endl << "================================================" << endl;
 
-    for(size_t i=0; i<plant.size(); ++i)
-    {
-        cout << "[" << i << "] " ;
-        plant[i]->Print();
-        cout << endl;
+        for(size_t i=0; i<plant.size(); ++i)
+        {
+            cout << "[" << i << "] " ;
+            plant[i]->Print();
+            cout << endl;
+        }
+        int choice = plant.size();
+        if (player->Money() > 0)
+        {
+            cout << endl << "Player $" << player->Money() ;
+            cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+        }
+        break;
     }
-    int choice = plant.size();
-    // << endl << *player;
-    cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+
 
     /*
 
