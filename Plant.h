@@ -1,14 +1,9 @@
 #include <string>
-#include <sstream>
 #include <iostream>
 #include <fstream>
-#include <stdlib.h>
 //==========================================================//
 #ifndef PLANT_H_
 #define PLANT_H_
-#include <iostream>
-#include <string>
-#include <fstream>
 class Plant
 {
     friend std::ostream & operator << (std::ostream &os, const Plant &p)
@@ -35,10 +30,11 @@ public:
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
     virtual void Print()const =0;
-    virtual const int Round()const {};
-    virtual const int GiveMoney()const{};
-    virtual const int Damage()const {};
-    virtual const int HpBack()const {};
+    virtual const int Round()const {}
+    virtual const int GiveMoney()const{}
+    virtual const int Damage()const {}
+    virtual const int HpBack()const {}
+    virtual bool VisitAddMoney(){}
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';
@@ -66,8 +62,18 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<giveMoney_<<" every "<<round_<<" rounds";
     }
-    const int Round()const {return round_;}
-    const int GiveMoney()const {return giveMoney_;}
+    virtual const int Round()const {return round_;}
+    virtual const int GiveMoney()const {return giveMoney_;}
+    virtual bool VisitAddMoney()
+    {
+        round_++;
+        if(round_==2)
+        {
+            round_=0;
+            return true;
+        }
+        return false;
+    }
 private:
     int round_=0;
     int giveMoney_=0;
@@ -92,7 +98,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
     }
-    const int Damage()const {return damage_;}
+    virtual const int Damage()const {return damage_;}
 private:
     int damage_=0;
 };
@@ -142,7 +148,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives all your plants "<<hpBack_<<" HP back.";
     }
-    const int HpBack()const {return hpBack_;}
+    virtual const int HpBack()const {return hpBack_;}
 private:
     int hpBack_=0;
 };

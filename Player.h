@@ -15,8 +15,8 @@ public:
     {
         Position_=index;
     }
-    const int Pos(){return Position_;}
-    const int Money(){return Money_;}
+    const int Pos()const{return Position_;}
+    const int Money()const{return Money_;}
     void CostMoney(const int cost){Money_-=cost;}
 private:
     int Money_=150;
