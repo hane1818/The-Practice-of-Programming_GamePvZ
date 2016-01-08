@@ -139,7 +139,7 @@ int main()
         {
             if (player->Money() <= 0)
             {
-                cout << "You don't have enough money" << endl;
+                cout << "You don't have enough money to plant anything" << endl;
             }
             else if (map->GetLand(player->Pos())->IsEmpty())
             {
@@ -155,6 +155,7 @@ int main()
             }
             if(choice != plant.size() && plant[choice]->Price() >= player->Money())
                 cout << "Not enough money! Please input again!" << endl;
+            system("pause");
         }
         while(choice != plant.size() && plant[choice]->Price() >= player->Money());
 
@@ -163,19 +164,16 @@ int main()
         if (!map->IsNonPlant())
         {
             cout << "Oh no... You have no plant on the map ...." << endl;
-            break;
         }
         else if (BombPlant::deadNum >= ZOMBIES/2)
         {
             cout << "You lose the game since you cannot use that many bomb plants!" << endl;
-            break;
         }
         else
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
-            break;
         }
-
+        system("cls");
         break;
     }
 
