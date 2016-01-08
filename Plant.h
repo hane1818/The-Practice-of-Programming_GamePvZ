@@ -1,10 +1,3 @@
-#include<string>
-#include <sstream>
-#include<iostream>
-#include <vector>
-#include <fstream>
-#include <stdlib.h>
-
 #ifndef PLANT_H_
 #define PLANT_H_
 class Plant
@@ -35,7 +28,7 @@ public:
     virtual void Print()const=0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
-    char type_='/0';
+    char type_='\0';
     std::string name_;
     int price_=0;
     int hp_=0;
