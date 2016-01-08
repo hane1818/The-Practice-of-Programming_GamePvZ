@@ -30,10 +30,11 @@ public:
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
     virtual void Print()const =0;
-    virtual const int Round()const {};
-    virtual const int GiveMoney()const{};
-    virtual const int Damage()const {};
-    virtual const int HpBack()const {};
+    virtual const int Round()const {}
+    virtual const int GiveMoney()const{}
+    virtual const int Damage()const {}
+    virtual const int HpBack()const {}
+    virtual bool VisitAddMoney(){}
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';
@@ -63,6 +64,16 @@ public:
     }
     virtual const int Round()const {return round_;}
     virtual const int GiveMoney()const {return giveMoney_;}
+    virtual bool VisitAddMoney()
+    {
+        round_++;
+        if(round_==2)
+        {
+            round_=0;
+            return true
+        }
+        return false;
+    }
 private:
     int round_=0;
     int giveMoney_=0;
