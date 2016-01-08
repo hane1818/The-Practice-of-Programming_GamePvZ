@@ -54,6 +54,17 @@ public:
             }
         }
     }
+
+    bool IsNonPlant()const
+    {
+        for(int i=0;i<size_;i++)
+        {
+            if(!GetLand(i)->IsEmpty())
+                return false;
+        }
+        return true;
+    }
+
     void Display(Player &p , Zombie * z)const //Display Game Board
     {
         for(int i=0;i<size_;i++)
