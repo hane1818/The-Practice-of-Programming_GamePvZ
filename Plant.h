@@ -31,7 +31,7 @@ public:
     virtual const int GiveMoney()const{return 0;}//CoinPlant
     virtual const int Attack()const {return 0;}//HornPlant
     virtual const int HpBack()const {return 0;}//HealPlant
-    virtual bool Visit(){return 0;}//CoinPlant::return true=>GiveMoney;BombPlant::return true =>zombie hp=0;
+    virtual bool Visit(){return false;}//CoinPlant::return true=>GiveMoney;BombPlant::return true =>zombie hp=0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';

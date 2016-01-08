@@ -1,5 +1,4 @@
 #include <sstream>
-#include <cstdlib>
 #include <stdlib.h>
 #include"Plant.h"
 using namespace std;
@@ -33,6 +32,7 @@ CoinPlant::CoinPlant(std::fstream & ifs)
         int giveMoney=atoi(buffer[5].c_str());
         type_='C';
         round_=round;
+        roundtimes_=0;
         giveMoney_=giveMoney;
     }
     else
