@@ -1,3 +1,9 @@
+#include<string>
+#include <sstream>
+#include<iostream>
+#include <fstream>
+#include <stdlib.h>
+//==========================================================//
 #ifndef PLANT_H_
 #define PLANT_H_
 class Plant
@@ -19,16 +25,20 @@ public:
     {
         std::cout<<"~Plant()"<<std::endl;
     };
-    void Damage(const int hurt) {hp_-=hurt;}
+    virtual void Damage(const int hurt) {hp_-=hurt;}
     bool isAlive()const {return (hp_>0);}
     const std::string Name()const {return name_;}
     const int Price()const {return price_;}
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
-    virtual void Print()const=0;
+    virtual void Print()const =0;
+    virtual const int Round()const =0;
+    virtual const int GiveMoney()const =0;
+    virtual const int Damage()const =0;
+    virtual const int HpBack()const =0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
-    char type_='\0';
+    char type_='/0';
     std::string name_;
     int price_=0;
     int hp_=0;
@@ -98,9 +108,15 @@ public:
     {
         std::cout<<"~BombPlant"<<std::endl;
     }
+    static int deadNum;
     virtual void Print()const
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<hp_<<" damage points";
+    }
+    virtual void Damage(const int hurt)
+    {
+        hp_=0;
+        deadNum++;
     }
 };
 #endif // BombPlant_H_
