@@ -66,8 +66,8 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<giveMoney_<<" every "<<round_<<" rounds";
     }
-    const int Round()const {return round_;}
-    const int GiveMoney()const {return giveMoney_;}
+    virtual const int Round()const {return round_;}
+    virtual const int GiveMoney()const {return giveMoney_;}
 private:
     int round_=0;
     int giveMoney_=0;
@@ -92,7 +92,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
     }
-    const int Damage()const {return damage_;}
+    virtual const int Damage()const {return damage_;}
 private:
     int damage_=0;
 };
@@ -142,7 +142,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives all your plants "<<hpBack_<<" HP back.";
     }
-    const int HpBack()const {return hpBack_;}
+    virtual const int HpBack()const {return hpBack_;}
 private:
     int hpBack_=0;
 };
