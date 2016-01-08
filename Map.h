@@ -1,9 +1,10 @@
 #ifndef MAP__
 #define MAP__
 
-#include<cstdio>
-#include<iostream>
-#include<cstdlib>
+#include <cstdio>
+#include <iostream>
+#include <cstdlib>
+#include "Land.h"
 
 class Map
 {
@@ -52,7 +53,7 @@ public:
                 else std::cout << " ";
             }
             std::cout << "}";
-            GetLand(i)->Print();
+            std::cout << map_[i];
             std::cout << std::endl;
         }
     }

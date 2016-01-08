@@ -25,10 +25,11 @@ int main()
     p.Move(rand()%lands);
     for(int i=0;i<Zombie::TotalNum;i++)
         z[i].Move(rand()%lands);
+
     /*Display*/
     map.Display(p,z);
     /*Plainting*/
-    Plant x("Plant",50,50);
+    CoinPlant x("Plant",50,50,1,2);
     for(int i=0;i<COUNT;i++)
     {
         if(p.Money()>0)
@@ -47,7 +48,6 @@ int main()
         system("pause");
         system("cls");
     }
-
     delete []z;
     return 0;
 }

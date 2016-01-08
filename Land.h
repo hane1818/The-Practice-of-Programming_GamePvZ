@@ -1,9 +1,11 @@
 #ifndef LAND__
 #define LAND__
 
-#include<cstdio>
-#include<cstring>
-#include<iostream>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include "Player.h"
+#include "Plant.h"
 
 /*Land: Is it empty. Which plants it has. plant a plant on it*/
 class Land
@@ -30,19 +32,15 @@ public:
     {
         plant_ = x;
         isEmpty_ = false;
-        p.Spend(x.Price());
+        p.CostMoney(x.Price());
     }
-    void Print()
+    friend::std::ostream & operator << (std::ostream &os, const Land &l)
     {
-        if(IsEmpty())
-        {
-            std::cout << "Empty";
-        }
-        else
-        {
-            plant_.Display();
-        }
+        if(l.isEmpty_) os << "Empty";
+        else os << l.plant_;
+        return os;
     }
 };
+
 
 #endif // LAND
