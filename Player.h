@@ -2,6 +2,11 @@
 #define PLAYER_H_
 class Player
 {
+     friend std::ostream & operator << (std::ostream &os, const Player &p)
+    {
+        os<<"Player $"<<p.Money_;
+        return os;
+    }
 public:
     Player()=default;
     Player(int Money):Money_(Money){};

@@ -1,6 +1,6 @@
-#include<string>
+#include <string>
 #include <sstream>
-#include<iostream>
+#include <iostream>
 #include <fstream>
 #include <stdlib.h>
 //==========================================================//
@@ -35,13 +35,13 @@ public:
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
     virtual void Print()const =0;
-    virtual const int Round()const =0;
-    virtual const int GiveMoney()const =0;
-    virtual const int Damage()const =0;
-    virtual const int HpBack()const =0;
+    virtual const int Round()const {};
+    virtual const int GiveMoney()const{};
+    virtual const int Damage()const {};
+    virtual const int HpBack()const {};
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
-    char type_='/0';
+    char type_='\0';
     std::string name_;
     int price_=0;
     int hp_=0;
