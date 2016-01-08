@@ -29,7 +29,8 @@ int main()
     /*Display*/
     map.Display(p,z);
     /*Plainting*/
-    CoinPlant x("Plant",50,50,1,2);
+    HealPlant x("HealPlant",50,50,10);
+    cout <<  << endl;
     for(int i=0;i<COUNT;i++)
     {
         if(p.Money()>0)
@@ -43,7 +44,13 @@ int main()
         }
         cout << "p move to " << map.Rand(p) << endl<< endl;
         for(int j=0;j<Zombie::TotalNum;j++)
+        {
             cout << "z[" << j << "] move to " << map.Rand(z[j]) << endl;
+            if(!map.GetLand(z[j].Pos())->IsEmpty() && map.GetLand(z[j].Pos())->GetPlant()->Type()=='H')
+            {
+                map.Healing(10);
+            }
+        }
         map.Display(p,z);
         system("pause");
         system("cls");

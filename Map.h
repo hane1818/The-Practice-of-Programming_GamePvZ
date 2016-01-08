@@ -44,6 +44,16 @@ public:
         return index;
     }
 
+    void Healing(int hpBack)const
+    {
+        for(int i=0;i<size_;i++)
+        {
+            if(!GetLand(i)->IsEmpty())
+            {
+                GetLand(i)->GetPlant()->Damage(-hpBack);
+            }
+        }
+    }
     void Display(Player &p , Zombie * z)const //Display Game Board
     {
         for(int i=0;i<size_;i++)

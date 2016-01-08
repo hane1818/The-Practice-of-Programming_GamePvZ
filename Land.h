@@ -11,11 +11,11 @@
 class Land
 {
 private:
-    Plant plant_;
-    bool isEmpty_;
+    Plant * plant_ = nullptr;
+    bool isEmpty_ = true;
 public:
-    Land():plant_(),isEmpty_(true) {};
-    Land(Plant & x):plant_(x),isEmpty_(false) {};
+    Land(){};
+    Land(Plant * x):plant_(x),isEmpty_(false) {};
     Land(Land & x) {};
     Land & operator = (const Land & rhs)
     {
@@ -24,20 +24,25 @@ public:
         return (*this);
     }
     ~Land() {};
+    Plant * GetPlant()
+    {
+        return plant_;
+    }
     bool IsEmpty() //Is the land empty?
     {
         return (isEmpty_);
     }
-    void Planting(Player &p , const Plant & x) // Plant sth in the land
+    void Planting(Player &p , Plant & x) // Plant sth in the land
     {
-        plant_ = x;
+        plant_ = &x;
         isEmpty_ = false;
         p.CostMoney(x.Price());
     }
+
     friend::std::ostream & operator << (std::ostream &os, const Land &l)
     {
         if(l.isEmpty_) os << "Empty";
-        else os << l.plant_;
+        else os << (*l.plant_);
         return os;
     }
 };

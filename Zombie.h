@@ -40,6 +40,7 @@ std::ostream & operator << (std::ostream & os, const Zombie &z)
         os << "*";
     }
     os << std::endl;
+    return os;
 }
 
 #endif // ZOMBIE
