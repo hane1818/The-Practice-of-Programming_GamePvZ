@@ -7,6 +7,7 @@
 #include "Land.h"
 #include "Map.h"
 #include "Zombie.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -65,13 +66,11 @@ int main()
     system("cls");
 
     //game start
-    /*
     //construct
     Player *player = new Player();
     Zombie *zombie = new Zombie()[ZOMBIES];
-    Land *land = new Land()[LANDS];
-    Map *map = new Map(land);
-    vector<Plant*> plant;
+    Map *map = new Map(LANDS);
+    /*vector<Plant*> plant;
     ifstream fin=open("plants.txt");
     while(!fin.eof())
     {
@@ -104,9 +103,9 @@ int main()
         {
             plant.push_back(tmp);
         }
-    }
+    }*/
 
-    cout << *map << endl;
+    map->Display(*player, zombie);  //cout << *map << endl;
     cout << "------------------------------------------------" << endl;
     cout << "Zombie information:" << endl;
     for(int i=0;i<ZOMBIES;i++)
@@ -115,7 +114,7 @@ int main()
     }
     cout << endl << "================================================" << endl;
 
-    while(true)
+    /*while(true)
     {
         for(int i=0;i<plant.size();++i)
         {
@@ -172,16 +171,14 @@ int main()
         {
             cout << "Not enough money! Please input again.";
         }
-    }
+    }*/
 
     // destruct
-    while(!plant.empty())
-        delete plant.pop_back();
+    //while(!plant.empty())
+    //    delete plant.pop_back();
     delete player;
     delete map;
     delete [] zombie;
-    delete [] land;
-    */
 
     return 0;
 }
