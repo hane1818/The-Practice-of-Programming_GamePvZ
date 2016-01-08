@@ -29,7 +29,7 @@ public:
     const int Pos() const { return pos_;};
     void Move(const int index){  pos_ = index;};
     void Damage(const int damage){ hp_ -= damage;};
-    bool isAlive(){return (hp_ > 0);};
+    bool isAlive()const {return (hp_ > 0);};
 };
 int Zombie::TotalNum;
 
