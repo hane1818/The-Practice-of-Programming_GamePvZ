@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include"Plant.h"
 using namespace std;
+int BombPlant::deadNum=0;
 void Plant::readFile(fstream & ifs,string buffer[])
 {
     std::string str;
