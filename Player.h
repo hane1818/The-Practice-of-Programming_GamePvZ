@@ -1,8 +1,3 @@
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
-#include <fstream>
-#include <string>
 #ifndef PLAYER_H_
 #define PLAYER_H_
 class Player

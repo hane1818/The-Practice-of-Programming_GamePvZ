@@ -32,7 +32,7 @@ public:
     const int Price()const {return price_;}
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
-    virtual void Print()const {}
+    virtual void Print()const=0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='/0';
