@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <vector>
 #include <fstream>
+#include <ctime>
 #include "Map.h"
 #include "Zombie.h"
 #include "Player.h"
@@ -65,7 +66,6 @@ int main()
     system("pause");
     system("cls");
 
-    //game start
     //construct
     Player *player = new Player;
     Zombie *zombie = new Zombie[ZOMBIES];
@@ -111,6 +111,7 @@ int main()
         }
     }
 
+    srand(time(0));     // random number seed
     while(true)
     {
         map->Display(*player, zombie);  //cout << *map << endl;
@@ -134,7 +135,6 @@ int main()
             cout << endl << "Player $" << player->Money() ;
             cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
         }
-        break;
     }
 
 
