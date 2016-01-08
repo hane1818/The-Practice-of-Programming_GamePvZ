@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <vector>
 #include <fstream>
+#include <ctime>
 #include "Map.h"
 #include "Zombie.h"
 #include "Player.h"
@@ -11,6 +12,7 @@
 
 using namespace std;
 
+bool allZombiesDie(const Zombie * zombies, size_t num);
 int main()
 {
     //game start
@@ -65,7 +67,6 @@ int main()
     system("pause");
     system("cls");
 
-    //game start
     //construct
     Player *player = new Player;
     Zombie *zombie = new Zombie[ZOMBIES];
@@ -111,24 +112,51 @@ int main()
         }
     }
 
-    map->Display(*player, zombie);  //cout << *map << endl;
-    cout << "------------------------------------------------" << endl;
-    cout << "Zombie information:" << endl;
-    for(int i=0; i<ZOMBIES; i++)
+    srand(time(0));     // random number seed
+    while(true)
     {
-        cout << '[' << i << "] " << zombie[i];
-    }
-    cout << endl << "================================================" << endl;
+        map->Display(*player, zombie);  //cout << *map << endl;
+        cout << "------------------------------------------------" << endl;
+        cout << "Zombie information:" << endl;
+        for(int i=0; i<ZOMBIES; i++)
+        {
+            cout << '[' << i << "] " << zombie[i];
+        }
+        cout << endl << "================================================" << endl;
 
-    for(size_t i=0; i<plant.size(); ++i)
-    {
-        cout << "[" << i << "] " ;
-        plant[i]->Print();
-        cout << endl;
+        for(size_t i=0; i<plant.size(); ++i)
+        {
+            cout << "[" << i << "] " ;
+            plant[i]->Print();
+            cout << endl;
+        }
+        int choice = plant.size();
+        if (player->Money() > 0)
+        {
+            cout << endl << "Player $" << player->Money() ;
+            cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+        }
+        // end game condition
+        /*
+        if (!map->IsNonPlant())
+        {
+            cout << "Oh no... You have no plant on the map ...." << endl;
+            break;
+        }
+        else if (BombPlant::DeadNum >= ZOMBIES/2)
+        {
+            cout << "You lose the game since you cannot use that many bomb plants!" << endl;
+            break;
+        }
+        else
+        {
+            cout << "Congratulations! You have killed all zombies!" << endl;
+            break;
+        }
+        */
+        break;
     }
-    int choice = plant.size();
-    // << endl << *player;
-    cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+
 
     /*
 
@@ -182,4 +210,10 @@ int main()
     delete [] zombie;
 
     return 0;
+}
+
+bool allZombiesDie(const Zombie * zombies, size_t num)
+{
+    for(size_t i=0; i<num && !zombie[i].isAlive(); ++i)
+        return (i==num-1);
 }

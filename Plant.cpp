@@ -1,3 +1,5 @@
+#include <sstream>
+#include <cstdlib>
 #include"Plant.h"
 using namespace std;
 void Plant::readFile(fstream & ifs,string buffer[])
