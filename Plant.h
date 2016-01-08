@@ -1,6 +1,6 @@
-#include<string>
+#include <string>
 #include <sstream>
-#include<iostream>
+#include <iostream>
 #include <fstream>
 #include <stdlib.h>
 //==========================================================//
