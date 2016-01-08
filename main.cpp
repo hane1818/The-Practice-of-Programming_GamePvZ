@@ -135,18 +135,29 @@ int main()
             cout << endl;
         }
         int choice = plant.size();
-        if (player->Money() > 0)
+        do
         {
-            cout << endl << "Player $" << player->Money() ;
-            cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
-            getline(cin, input);
-            if(!input.empty())
+            if (player->Money() <= 0)
             {
-                istringstream stream( input );
-                stream >> value;
-                if(value <= plant.size() && value >= 0) choice = value;
+                cout << "You don't have enough money" << endl;
             }
+            else if (map->GetLand(player->Pos())->IsEmpty())
+            {
+                cout << endl << "Player $" << player->Money() ;
+                cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+                getline(cin, input);
+                if(!input.empty())
+                {
+                    istringstream stream( input );
+                    stream >> value;
+                    if(value <= plant.size() && value >= 0) choice = value;
+                }
+            }
+            if(choice != plant.size() && plant[choice]->Price() >= player->Money())
+                cout << "Not enough money! Please input again!" << endl;
         }
+        while(choice != plant.size() && plant[choice]->Price() >= player->Money());
+
 
         // end game condition
         if (!map->IsNonPlant())
