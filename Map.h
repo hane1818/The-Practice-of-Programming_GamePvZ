@@ -5,7 +5,6 @@
 #include <iostream>
 #include <cstdlib>
 #include "Land.h"
-#include "Zombie.h"
 
 class Map
 {
