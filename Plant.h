@@ -1,5 +1,5 @@
-#include <string>
-#include <iostream>
+#include<string>
+#include<iostream>
 #include <fstream>
 //==========================================================//
 #ifndef PLANT_H_
@@ -14,27 +14,24 @@ class Plant
 
 public:
     Plant()=default;
-    Plant(const std::string name,const int price=0,const int hp=0):name_(name),price_(price),hp_(hp)
-    {
-        //std::cout<<name_<<" "<<price_<<" "<<hp_<<" ====== "<<std::endl;
-    };
+    Plant(const std::string name,const int price=0,const int hp=0):name_(name),price_(price),hp_(hp){};
     Plant(const Plant &p):Plant(p.name_,p.price_,p.hp_) {};
     virtual ~Plant()
     {
         std::cout<<"~Plant()"<<std::endl;
     };
-    virtual void Damage(const int hurt) {hp_-=hurt;}
+    virtual void Damage(const int hurt) {hp_-=hurt;}//plant is attacked.
     bool isAlive()const {return (hp_>0);}
     const std::string Name()const {return name_;}
     const int Price()const {return price_;}
     const int Hp()const {return hp_;}
     const char Type()const {return type_;}
     virtual void Print()const =0;
-    virtual const int Round()const {}
-    virtual const int GiveMoney()const{}
-    virtual const int Damage()const {}
-    virtual const int HpBack()const {}
-    virtual bool VisitAddMoney(){}
+    virtual const int Round()const {return 0;}//CoinPlant
+    virtual const int GiveMoney()const{return 0;}//CoinPlant
+    virtual const int Attack()const {return 0;}//HornPlant
+    virtual const int HpBack()const {return 0;}//HealPlant
+    virtual bool Visit(){return 0;}//CoinPlant::return true=>GiveMoney;BombPlant::return true =>zombie hp=0;
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';
@@ -62,19 +59,20 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<giveMoney_<<" every "<<round_<<" rounds";
     }
-    virtual const int Round()const {return round_;}
+    virtual const int Round()const {return roundtimes_;}
     virtual const int GiveMoney()const {return giveMoney_;}
-    virtual bool VisitAddMoney()
+    virtual bool Visit()
     {
-        round_++;
-        if(round_==2)
+        roundtimes_++;
+        if(roundtimes_==round_)
         {
-            round_=0;
+            roundtimes_=0;
             return true;
         }
         return false;
     }
 private:
+    int roundtimes_=0;
     int round_=0;
     int giveMoney_=0;
 };
@@ -98,9 +96,9 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
     }
-    virtual const int Damage()const {return damage_;}
+    virtual const int Attack()const {return damage_;}
 private:
-    int damage_=0;
+    int damage_=0;//attack zombie
 };
 #endif // HornPlant_H_
 //==================================================================//
@@ -122,10 +120,11 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<hp_<<" damage points";
     }
-    virtual void Damage(const int hurt)
+    virtual bool Visit()
     {
         hp_=0;
         deadNum++;
+        return true;
     }
 };
 #endif // BombPlant_H_
