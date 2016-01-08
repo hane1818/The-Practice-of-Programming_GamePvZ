@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include<vector>
+#include <vector>
 #include <cstdlib>
 #include"Plant.h"
 using namespace std;
@@ -46,7 +46,6 @@ int main()
         plant[i]->Print();
         cout<<endl;
     }
-
     while(!plant.empty())
     {
         delete plant.back();

@@ -1,5 +1,5 @@
-#include<string>
-#include<iostream>
+#include <string>
+#include <iostream>
 #include <fstream>
 //==========================================================//
 #ifndef PLANT_H_
@@ -94,7 +94,7 @@ public:
     }
     virtual void Print()const
     {
-        std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<damage_<<" damage points";
+        std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<damage_<<" damage points";
     }
     virtual const int Attack()const {return damage_;}
 private:
@@ -118,7 +118,7 @@ public:
     static int deadNum;
     virtual void Print()const
     {
-        std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<hp_<<" damage points";
+        std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<hp_<<" damage points";
     }
     virtual bool Visit()
     {
