@@ -120,12 +120,33 @@ int main()
     }
     cout << endl << "================================================" << endl;
 
+    for(size_t i=0; i<plant.size(); ++i)
+    {
+        cout << "[" << i << "] " ;
+        switch(plant[i]->Type())
+        {
+            case 'C':
+                dynamic_cast<CoinPlant *>(plant[i])->Print();
+                break;
+            case 'S':
+                dynamic_cast<HornPlant *>(plant[i])->Print();
+                break;
+            case 'B':
+                dynamic_cast<BombPlant *>(plant[i])->Print();
+                break;
+            case 'H':
+                dynamic_cast<HealPlant *>(plant[i])->Print();
+                break;
+        }
+        cout << endl;
+    }
+
     /*while(true)
     {
         for(int i=0;i<plant.size();++i)
         {
             cout << '[' << i << "] " ;
-            switch(plant[i]->type())
+            switch(plant[i]->Type())
             {
                 case 'C':
                     cout << dynamic_cast<CoinPlant *>(plant[i]);
