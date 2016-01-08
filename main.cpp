@@ -66,8 +66,9 @@ int main()
 
     //game start
     //construct
-    Player *player = new Player();
-    Zombie *zombie = new Zombie()[ZOMBIES];
+    Player *player = new Player;
+    Zombie *zombie = new Zombie[ZOMBIES];
+    Zombie::TotalNum = ZOMBIES;
     Map *map = new Map(LANDS);
     /*vector<Plant*> plant;
     ifstream fin=open("plants.txt");
