@@ -65,11 +65,11 @@ public:
         return true;
     }
 
-    void Display(Player &p , Zombie * z)const //Display Game Board
+    void Display(const Player &p , const Zombie * z)const //Display Game Board
     {
         for(int i=0;i<size_;i++)
         {
-            std::cout << "[" << i << "]{" << ((p.Pos()==i) ? "*" : " ");
+            std::cout << "[" << i << "]{" << ((p.Pos() == i) ? "*" : " ");
             for(int j=0;j<Zombie::TotalNum;j++)
             {
                 if((z[j].Pos() == i))std::cout << j;
