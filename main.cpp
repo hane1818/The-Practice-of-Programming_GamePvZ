@@ -12,7 +12,7 @@
 
 using namespace std;
 
-bool allZombiesDie(const Zombie * zombies, size_t num);
+bool allZombiesDie(const Zombie * zombie, size_t num);
 int main()
 {
     //game start
@@ -68,6 +68,7 @@ int main()
     system("cls");
 
     //construct
+    srand(time(0));     // random number seed
     Player *player = new Player;
     Zombie *zombie = new Zombie[ZOMBIES];
     Zombie::TotalNum = ZOMBIES;
@@ -112,7 +113,9 @@ int main()
         }
     }
 
-    srand(time(0));     // random number seed
+    player->Move(rand()%LANDS);
+    for (int i=0; i<ZOMBIES; ++i)
+        zombie[i].Move(rand()%LANDS);
     while(true)
     {
         map->Display(*player, zombie);  //cout << *map << endl;
@@ -135,15 +138,16 @@ int main()
         {
             cout << endl << "Player $" << player->Money() ;
             cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+            cin >> choice;
         }
+
         // end game condition
-        /*
         if (!map->IsNonPlant())
         {
             cout << "Oh no... You have no plant on the map ...." << endl;
             break;
         }
-        else if (BombPlant::DeadNum >= ZOMBIES/2)
+        else if (BombPlant::deadNum >= ZOMBIES/2)
         {
             cout << "You lose the game since you cannot use that many bomb plants!" << endl;
             break;
@@ -153,7 +157,7 @@ int main()
             cout << "Congratulations! You have killed all zombies!" << endl;
             break;
         }
-        */
+
         break;
     }
 
@@ -212,7 +216,7 @@ int main()
     return 0;
 }
 
-bool allZombiesDie(const Zombie * zombies, size_t num)
+bool allZombiesDie(Zombie * zombie, size_t num)
 {
     for(size_t i=0; i<num && !zombie[i].isAlive(); ++i)
         return (i==num-1);
