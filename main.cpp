@@ -12,7 +12,9 @@
 
 using namespace std;
 
-bool allZombiesDie(const Zombie * zombies, size_t num);
+bool allZombiesDie(const Zombie * zombie, size_t num);
+bool enoughMoney(const vector<Plant*> & plant, const Player * player);
+void printInfor(const Map & map, const Player & player, const Zombie * zombie, const int Z_NUM);
 int main()
 {
     //game start
@@ -68,6 +70,7 @@ int main()
     system("cls");
 
     //construct
+    srand(time(0));     // random number seed
     Player *player = new Player;
     Zombie *zombie = new Zombie[ZOMBIES];
     Zombie::TotalNum = ZOMBIES;
@@ -112,49 +115,65 @@ int main()
         }
     }
 
-    srand(time(0));     // random number seed
+    player->Move(rand()%LANDS);
+    for (int i=0; i<ZOMBIES; ++i)
+        zombie[i].Move(rand()%LANDS);
+
     while(true)
     {
-        map->Display(*player, zombie);  //cout << *map << endl;
-        cout << "------------------------------------------------" << endl;
-        cout << "Zombie information:" << endl;
-        for(int i=0; i<ZOMBIES; i++)
-        {
-            cout << '[' << i << "] " << zombie[i];
-        }
-        cout << endl << "================================================" << endl;
+        printInfor(*map, *player, zombie, ZOMBIES);
 
-        for(size_t i=0; i<plant.size(); ++i)
-        {
-            cout << "[" << i << "] " ;
-            plant[i]->Print();
-            cout << endl;
-        }
         int choice = plant.size();
-        if (player->Money() > 0)
-        {
-            cout << endl << "Player $" << player->Money() ;
-            cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+        do {
+            if (!enoughMoney(plant, player))
+            {
+                cout << "You don't have enough money to plant anything" << endl;
+            }
+            else if (map->GetLand(player->Pos())->IsEmpty())
+            {
+                for(size_t i=0; i<plant.size(); ++i)
+                {
+                    cout << "[" << i << "] " ;
+                    plant[i]->Print();
+                    cout << endl;
+                }
+                cout << endl << "Player $" << player->Money() ;
+                cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+                getline(cin, input);
+                if(!input.empty())
+                {
+                    istringstream stream( input );
+                    stream >> value;
+                    if(value <= plant.size() && value >= 0) choice = value;
+                }
+                if(choice != plant.size())
+                {
+                    map->GetLand(player->Pos())->Planting(*player, *plant[choice]);
+                    cout << "You have planted " << plant[choice]->Name() << " at land " << player->Pos() << " !" << endl;
+                }
+            }
+            if(choice != plant.size() && plant[choice]->Price() >= player->Money())
+                cout << "Not enough money! Please input again!" << endl;
+            system("pause");
         }
+        while(choice != plant.size() && plant[choice]->Price() >= player->Money());
+
+
         // end game condition
-        /*
-        if (!map->IsNonPlant())
+        if (map->IsNonPlant())
         {
             cout << "Oh no... You have no plant on the map ...." << endl;
-            break;
         }
-        else if (BombPlant::DeadNum >= ZOMBIES/2)
+        else if (BombPlant::deadNum >= ZOMBIES/2)
         {
             cout << "You lose the game since you cannot use that many bomb plants!" << endl;
-            break;
         }
-        else
+        else if (allZombiesDie(zombie, ZOMBIES))
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
-            break;
         }
-        */
-        break;
+        system("cls");
+        //break;
     }
 
 
@@ -212,8 +231,29 @@ int main()
     return 0;
 }
 
-bool allZombiesDie(const Zombie * zombies, size_t num)
+bool allZombiesDie(const Zombie * zombie, size_t num)
 {
+    cout << zombie[0].isAlive();
     for(size_t i=0; i<num && !zombie[i].isAlive(); ++i)
         return (i==num-1);
+}
+
+bool enoughMoney(const vector<Plant*> & plant, const Player * player)
+{
+    for (Plant* p : plant)
+        if (p->Price() <= player->Money()) return true;
+    return false;
+}
+
+void printInfor(const Map & map, const Player & player, const Zombie * zombie, const int Z_NUM)
+{
+    cout << zombie << endl;
+    map.Display(player, zombie);
+    cout << "------------------------------------------------" << endl;
+    cout << "Zombie information:" << endl;
+    for(int i=0; i<Z_NUM; ++i)
+    {
+        cout << '[' << i << "] " << zombie[i];
+    }
+    cout << endl << "================================================" << endl;
 }
