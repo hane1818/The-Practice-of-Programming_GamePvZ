@@ -13,6 +13,7 @@
 using namespace std;
 
 bool allZombiesDie(const Zombie * zombie, size_t num);
+bool enoughMoney(const vector<Plant*> & plant, const Player * player);
 int main()
 {
     //game start
@@ -137,7 +138,7 @@ int main()
         int choice = plant.size();
         do
         {
-            if (player->Money() <= 0)
+            if (!enoughMoney(plant, player))
             {
                 cout << "You don't have enough money to plant anything" << endl;
             }
@@ -169,7 +170,7 @@ int main()
         {
             cout << "You lose the game since you cannot use that many bomb plants!" << endl;
         }
-        else
+        else if (allZombiesDie(zombie, ZOMBIES))
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
         }
@@ -232,8 +233,16 @@ int main()
     return 0;
 }
 
-bool allZombiesDie(Zombie * zombie, size_t num)
+bool allZombiesDie(const Zombie * zombie, size_t num)
 {
+    cout << zombie[0].isAlive();
     for(size_t i=0; i<num && !zombie[i].isAlive(); ++i)
         return (i==num-1);
+}
+
+bool enoughMoney(const vector<Plant*> & plant, const Player * player)
+{
+    for (Plant* p : plant)
+        if (p->Price() <= player->Money()) return true;
+    return false;
 }
