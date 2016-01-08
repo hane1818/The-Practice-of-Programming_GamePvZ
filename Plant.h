@@ -70,7 +70,7 @@ public:
         if(round_==2)
         {
             round_=0;
-            return true
+            return true;
         }
         return false;
     }
