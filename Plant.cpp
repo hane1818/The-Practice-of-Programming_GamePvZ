@@ -1,5 +1,6 @@
 #include <sstream>
 #include <cstdlib>
+#include <stdlib.h>
 #include"Plant.h"
 using namespace std;
 int BombPlant::deadNum=0;
