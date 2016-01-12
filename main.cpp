@@ -169,7 +169,7 @@ int main()
             if(!land->IsEmpty())
             {
                 Plant *p = land->GetPlant();
-                if(p->Type()!='C') p->Visit();
+                if(p->Type()=='B') p->Visit();
                 if(p->Attack())
                 {
                     zombie[i].Damage(p->Attack());
