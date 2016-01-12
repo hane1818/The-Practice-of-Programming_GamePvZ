@@ -14,7 +14,7 @@ private:
     Plant * plant_ = nullptr;
     bool isEmpty_ = true;
 public:
-    Land(){};
+    Land() {};
     Land(Plant * x):plant_(x),isEmpty_(false) {};
     Land(Land & x) {};
     Land & operator = (const Land & rhs)
@@ -24,28 +24,59 @@ public:
         return (*this);
     }
     ~Land() {};
-    Plant * GetPlant()
+    Plant * GetPlant() const
     {
         return plant_;
     }
-    bool IsEmpty() //Is the land empty?
+    bool IsEmpty() const //Is the land empty?
     {
         return (isEmpty_);
     }
     void Planting(Player &p , Plant & x) // Plant sth in the land
     {
-        plant_ = &x;
+        Plant *tmp = nullptr;
+        if(x.Type()=='C')
+        {
+            tmp = new CoinPlant(*dynamic_cast<CoinPlant * >(&x));
+        }
+        else if(x.Type()=='S')
+        {
+            tmp = new HornPlant(*dynamic_cast<HornPlant * >(&x));
+        }
+        else if(x.Type()=='B')
+        {
+            tmp = new BombPlant(*dynamic_cast<BombPlant * >(&x));
+        }
+        else if(x.Type()=='H')
+        {
+            tmp = new HealPlant(*dynamic_cast<HealPlant * >(&x));
+        }
+        plant_ = tmp;
         isEmpty_ = false;
         p.CostMoney(x.Price());
     }
-
-    friend::std::ostream & operator << (std::ostream &os, const Land &l)
+    bool Dead()
     {
-        if(l.isEmpty_) os << "Empty";
-        else os << (*l.plant_);
-        return os;
+        if(plant_->Hp() > 0)
+        {
+            return false;
+        }
+        delete plant_;
+        isEmpty_ = true;
+        return true;
     }
 };
 
-
+std::ostream & operator << (std::ostream &os, const Land &l)
+{
+    if(l.IsEmpty())
+    {
+        os << "Empty";
+    }
+    else
+    {
+        os << *(l.GetPlant());
+    };
+    return os;
+}
 #endif // LAND
