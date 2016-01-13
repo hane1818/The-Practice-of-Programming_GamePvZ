@@ -34,7 +34,8 @@ public:
     virtual const int Attack()const {return 0;}//HornPlant
     virtual const int HpBack()const {return 0;}//HealPlant
     virtual bool Visit(const Player &p){return false;}//CoinPlant::return true=>GiveMoney;Heal
-    virtual void Visit(const Zombie &z)=0;//BombPlant::return true =>zombie hp=0;
+    virtual void Visit(Zombie &z)const{}//BombPlant::return true =>zombie hp=0;
+
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';
@@ -122,7 +123,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<hp_<<" damage points";
     }
-    virtual void Visit(const Zombie &z)
+    virtual void Visit(Zombie &z)
     {
         hp_=0;
         z.Damage(hp_);
