@@ -125,7 +125,7 @@ public:
     virtual void Visit(const Zombie &z)
     {
         hp_=0;
-        z.damage(hp_);
+        z.Damage(hp_);
         deadNum++;
     }
 };
