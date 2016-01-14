@@ -35,6 +35,8 @@ public:
     virtual const int HpBack()const {return 0;}//HealPlant
     virtual bool Visit(Player &p){return false;}//CoinPlant::return false=>GiveMoney;Heal=>return true
     virtual void Visit(Zombie &z) {hp_-=z.Attack();}//BombPlant::return true =>zombie hp=0;
+    virtual bool Visit(Player &p){return false;}//CoinPlant::return false=>GiveMoney;Heal=>return true
+    virtual void Visit(Zombie &z) {hp_-=z.Attack();}//BombPlant::return true =>zombie hp=0;
     virtual Plant* New(){return this;}
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
