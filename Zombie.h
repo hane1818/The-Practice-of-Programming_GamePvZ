@@ -12,7 +12,7 @@ private:
     int attack_;
 public:
     static int TotalNum;
-    Zombie():pos_(0),hp_(15),attack_(0){};
+    Zombie():pos_(0),hp_(50),attack_(15){};
     Zombie(int position):pos_(position){};
     Zombie(const int pos,const int hp,const int attack):pos_(pos),hp_(hp),attack_(attack){};
     Zombie(Zombie & z){};
@@ -29,19 +29,9 @@ public:
     const int Pos() const { return pos_;};
     void Move(const int index){  pos_ = index;};
     void Damage(const int damage){ hp_ -= damage;};
-    bool isAlive(){return (hp_ > 0);};
+    bool isAlive()const {return (hp_ > 0);};
 };
-int Zombie::TotalNum;
 
-std::ostream & operator << (std::ostream & os, const Zombie &z)
-{
-    os << "Damage: " << z.Attack() << " HP:";
-    for(int i = 0;i < z.Hp() ;++i)
-    {
-        os << "*";
-    }
-    os << std::endl;
-    return os;
-}
-
+int Zombie::TotalNum = 0;
+std::ostream & operator << (std::ostream & os, const Zombie &z);
 #endif // ZOMBIE
