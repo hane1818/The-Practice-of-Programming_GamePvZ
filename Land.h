@@ -34,23 +34,7 @@ public:
     }
     void Planting(Player &p , Plant & x) // Plant sth in the land
     {
-        Plant *tmp = nullptr;
-        if(x.Type()=='C')
-        {
-            tmp = new CoinPlant(*dynamic_cast<CoinPlant * >(&x));
-        }
-        else if(x.Type()=='S')
-        {
-            tmp = new HornPlant(*dynamic_cast<HornPlant * >(&x));
-        }
-        else if(x.Type()=='B')
-        {
-            tmp = new BombPlant(*dynamic_cast<BombPlant * >(&x));
-        }
-        else if(x.Type()=='H')
-        {
-            tmp = new HealPlant(*dynamic_cast<HealPlant * >(&x));
-        }
+        Plant * tmp = x.New();
         plant_ = tmp;
         isEmpty_ = false;
         p.CostMoney(x.Price());
