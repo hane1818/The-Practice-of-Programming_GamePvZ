@@ -42,17 +42,13 @@ int main()
             {
                 cout << "p's money:" << p.Money() << endl;
                 map.GetLand(p.Pos())->Planting(p,x);
-                cout << "p plant a plant." << endl;
+                cout << "p plant a plant." << x.Name() << endl;
             }
         }
         cout << "p move to " << map.Rand(p) << endl<< endl;
         for(int j=0;j<Zombie::TotalNum;j++)
         {
             cout << "z[" << j << "] move to " << map.Rand(z[j]) << endl;
-            if(!map.GetLand(z[j].Pos())->IsEmpty() && map.GetLand(z[j].Pos())->GetPlant()->Type()=='H')
-            {
-                map.Healing(10);
-            }
         }
         map.Display(p,z);
         system("pause");
