@@ -184,7 +184,10 @@ int main()
                     if(!zombie[i].isAlive())
                         cout << "Zombie is killed!" << endl;
                     if(!p->isAlive())
+                    {
+                        l->Dead();
                         cout << "Plant " << p->Name() << " is dead!" << endl;
+                    }
                 }
                 system("pause");
             }
