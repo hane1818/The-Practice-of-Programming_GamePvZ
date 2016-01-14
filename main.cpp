@@ -169,13 +169,13 @@ int main()
             if(!land->IsEmpty())
             {
                 Plant *p = land->GetPlant();
-                if(p->Type()=='B') p->Visit();
+                p->Visit(zombie[i]);
                 if(p->Attack())
                 {
-                    zombie[i].Damage(p->Attack());
+                    //zombie[i].Damage(p->Attack());
                     cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
                 }
-                p->Damage(zombie[i].Attack());
+                //p->Damage(zombie[i].Attack());
                 cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
                 if(!zombie[i].isAlive())
                     cout << "Zombie is killed!" << endl;
@@ -216,45 +216,6 @@ int main()
         //break;
     }
 
-
-    /*
-
-        if(choice=plant.size()) break;
-        int cost=0;
-        string plantname;
-        switch(plant[choice].type())
-        {
-        case 'C':
-            CoinPlant *tmp = new CoinPlant(*dynamic_cast<CoinPlant *>(plant[choice]))
-            land->plant(tmp);
-            plantname="CoinPlant";
-            cost=tmp->price();
-        case 'S':
-            HornPlant *tmp = new HornPlant(*dynamic_cast<CoinPlant *>(plant[choice]))
-            land->plant(tmp);
-            plantname="HornPlant";
-            cost=tmp->price();
-        case 'B':
-            BombPlant *tmp = new BombPlant(*dynamic_cast<CoinPlant *>(plant[choice]));
-            land->plant(tmp);
-            plantname="BombPlant";
-            cost=tmp->price();
-        case 'H':
-            HealPlant *tmp = new HealPlant(*dynamic_cast<CoinPlant *>(plant[choice]));
-            land->plant(tmp);
-            plantname="HealPlant";
-            cost=tmp->price();
-        }
-        if(player->money() >= cost)
-        {
-            cout << "You have planted " << plantname << " at land 7 !";
-            break;
-        }
-        else
-        {
-            cout << "Not enough money! Please input again.";
-        }
-    }*/
     // destruct
     while(!plant.empty())
     {
