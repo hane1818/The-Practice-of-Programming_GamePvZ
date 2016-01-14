@@ -45,11 +45,44 @@ int main()
                 cout << "p plant a plant." << x.Name() << endl;
             }
         }
-        cout << "p move to " << map.Rand(p) << endl<< endl;
+
         for(int j=0;j<Zombie::TotalNum;j++)
         {
-            cout << "z[" << j << "] move to " << map.Rand(z[j]) << endl;
+            if( z[j].isAlive() )
+                cout << "z[" << j << "] move to " << map.Rand(z[j]) << endl;
+            if( map.GetLand( z[j].Pos() )->IsEmpty() == false )
+            {
+                Plant * tmp = map.GetLand(z[j].Pos())->GetPlant();
+                if( tmp -> Type() == 'S' || tmp -> Type() == 'B')
+                {
+                    int attack = ( tmp -> Type() == 'S' )?( tmp->Attack() ):( tmp->Hp() );
+                    z[j].Damage( attack ) ;
+                    cout << tmp -> Name() << "gives" << attack << "damages to the Zombie!" << endl;
+                }
+                tmp->Damage( z[j].Attack() );
+                cout << "Zombie eats Plant " << tmp->Name() << " and causes damage" << z[j].Attack() << endl;
+                if( !z[j].isAlive() )
+                    cout << "Zombie is killed!" << endl;
+                if(!tmp->isAlive())
+                    cout << "Plant " << tmp->Name() << " is killed" << endl;
+                system("pause");
+
+            }
         }
+        int position = map.Rand(p);
+        cout << "p move to " << position << endl<< endl;
+        Land *l = map.GetLand(position);
+        if(!l->IsEmpty())
+        {
+            Plant *p = l->GetPlant();
+            if(p->HpBack())
+            {
+                cout << "oh no?" << endl;
+                map.Healing(p->HpBack());
+                cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
+            }
+        }
+        system("pause");
         map.Display(p,z);
         system("pause");
         system("cls");
