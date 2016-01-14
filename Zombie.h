@@ -31,17 +31,6 @@ public:
     void Damage(const int damage){ hp_ -= damage;};
     bool isAlive()const {return (hp_ > 0);};
 };
-int Zombie::TotalNum;
 
-std::ostream & operator << (std::ostream & os, const Zombie &z)
-{
-    os << "Damage: " << z.Attack() << " HP:";
-    for(int i = 0;i < z.Hp() ;++i)
-    {
-        os << "*";
-    }
-    os << std::endl;
-    return os;
-}
-
+std::ostream & operator << (std::ostream & os, const Zombie &z);
 #endif // ZOMBIE
