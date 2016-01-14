@@ -1,5 +1,5 @@
 #include <sstream>
-#include <cstdlib>
+#include <stdlib.h>
 #include"Plant.h"
 using namespace std;
 int BombPlant::deadNum=0;
@@ -15,12 +15,9 @@ void Plant::readFile(fstream & ifs,string buffer[])
         buffer[i]=sub;
         ++i;
     }
-    std::string name=buffer[1];
-    int price=atoi(buffer[2].substr(1,buffer[2].size()).c_str());
-    int hp=atoi(buffer[3].c_str());
-    name_=name;
-    price_=price;
-    hp_=hp;
+    name_=buffer[1];
+    price_=atoi(buffer[2].substr(1,buffer[2].size()).c_str());
+    hp_=atoi(buffer[3].c_str());
 }
 CoinPlant::CoinPlant(std::fstream & ifs)
 {
@@ -28,11 +25,10 @@ CoinPlant::CoinPlant(std::fstream & ifs)
     {
         std::string buffer[6];
         readFile(ifs,buffer);
-        int round=atoi(buffer[4].c_str());
-        int giveMoney=atoi(buffer[5].c_str());
+        round_=atoi(buffer[4].c_str());
+        giveMoney_=atoi(buffer[5].c_str());
         type_='C';
-        round_=round;
-        giveMoney_=giveMoney;
+        roundtimes_=0;
     }
     else
     {
@@ -46,8 +42,7 @@ HornPlant::HornPlant(std::fstream & ifs)
         std::string buffer[6];
         readFile(ifs,buffer);
         type_='S';
-        int damage=atoi(buffer[4].c_str());
-        damage_=damage;
+        damage_=atoi(buffer[4].c_str());
     }
     else
     {
@@ -74,8 +69,7 @@ HealPlant::HealPlant(std::fstream & ifs)
         std::string buffer[6];
         readFile(ifs,buffer);
         type_='H';
-        int hpBack=atoi(buffer[4].c_str());
-        hpBack_=hpBack;
+        hpBack_=atoi(buffer[4].c_str());
     }
     else
     {
