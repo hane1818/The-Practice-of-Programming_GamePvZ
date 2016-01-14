@@ -63,7 +63,7 @@ public:
     {
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives $"<<giveMoney_<<" every "<<round_<<" rounds";
     }
-    virtual const int Round()const {return roundtimes_;}
+    virtual const int Round()const {return round_-roundtimes_;}
     virtual const int GiveMoney()const {return giveMoney_;}
     virtual bool Visit(Player &p)
     {
