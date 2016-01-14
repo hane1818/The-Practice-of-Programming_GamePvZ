@@ -34,8 +34,8 @@ public:
     virtual const int Attack()const {return 0;}//HornPlant
     virtual const int HpBack()const {return 0;}//HealPlant
     virtual bool Visit(const Player &p){return false;}//CoinPlant::return true=>GiveMoney;Heal
-    virtual void Visit(Zombie &z)const{}//BombPlant::return true =>zombie hp=0;
-
+    virtual void Visit(Zombie &z)const {}//BombPlant::return true =>zombie hp=0;
+    virtual Plant* New(){return this;}
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
     char type_='\0';
@@ -74,6 +74,7 @@ public:
         }
         return false;
     }
+    virtual Plant* New(){return new CoinPlant(*this);}
 private:
     int roundtimes_=0;
     int round_=0;
@@ -100,6 +101,7 @@ public:
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<damage_<<" damage points";
     }
     virtual const int Attack()const {return damage_;}
+    virtual Plant* New(){return new HornPlant(*this);}
 private:
     int damage_=0;//attack zombie
 };
@@ -129,6 +131,7 @@ public:
         z.Damage(hp_);
         deadNum++;
     }
+    virtual Plant* New(){return new BombPlant(*this);}
 };
 #endif // BombPlant_H_
 //==================================================================//
@@ -137,8 +140,7 @@ public:
 class HealPlant:public Plant
 {
 public:
-
-   HealPlant()=default;
+    HealPlant()=default;
     HealPlant(std::fstream & ifs);
     HealPlant(const std::string name,const int price,const int hp,const int hpBack):Plant(name,price,hp),hpBack_(hpBack){}
     HealPlant(const HealPlant &h):HealPlant(h.name_,h.price_,h.hp_,h.hpBack_) {}
@@ -152,6 +154,7 @@ public:
     }
     virtual const int HpBack()const {return hpBack_;}
     virtual bool Visit(const Player &p){return true;}
+    virtual Plant* New(){return new HealPlant(*this);}
 private:
     int hpBack_=0;
 };
