@@ -33,8 +33,8 @@ public:
     virtual const int GiveMoney()const{return 0;}//CoinPlant
     virtual const int Attack()const {return 0;}//HornPlant
     virtual const int HpBack()const {return 0;}//HealPlant
-    virtual bool Visit(){return false;}//CoinPlant::return true=>GiveMoney;Heal
-    virtual void Visit(Zombie &z)const {}//BombPlant::return true =>zombie hp=0;
+    virtual bool Visit(){return false;}//CoinPlant::return false=>GiveMoney;Heal=>return true
+    virtual void Visit(Zombie &z) {hp_-=z.Attack();}//BombPlant::return true =>zombie hp=0;
     virtual Plant* New(){return this;}
 protected:
     void readFile(std::fstream & ifs,std::string buffer[]) ;
@@ -101,6 +101,11 @@ public:
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<damage_<<" damage points";
     }
     virtual const int Attack()const {return damage_;}
+    virtual void Visit(Zombie &z)
+    {
+        hp_-=z.Attack();
+        z.Damage(damage_);
+    }
     virtual Plant* New(){return new HornPlant(*this);}
 private:
     int damage_=0;//attack zombie
