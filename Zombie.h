@@ -31,5 +31,5 @@ public:
     void Damage(const int damage){ hp_ -= damage;};
     bool isAlive()const {return (hp_ > 0);};
 };
-
+std::ostream & operator << (std::ostream & os, const Zombie &z);
 #endif // ZOMBIE
