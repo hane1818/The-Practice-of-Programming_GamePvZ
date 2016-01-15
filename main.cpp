@@ -122,7 +122,8 @@ int main()
     while(true)
     {
         printInfor(*map, *player, zombie);
-        do {
+        do
+        {
             if (!enoughMoney(plant, player))
             {
                 cout << "You don't have enough money to plant anything" << endl;
@@ -157,33 +158,44 @@ int main()
                 cout << "Not enough money! Please input again!" << endl;
                 system("pause");
             }
-        }while (true);
-
+        }
+        while (true);
+        system("pause");
+        system("cls");
         int position;
         for (int i=0; i<ZOMBIES; ++i)
         {
-            position = rand()%LANDS;
-            zombie[i].Move(position);
-            cout << "Zombie [" << i << "] moves to land " << position << "." << endl;
-            Land * land = map->GetLand(position);
-            if(!land->IsEmpty())
+            if (zombie[i].isAlive())
             {
-                Plant *p = land->GetPlant();
-                p->Visit(zombie[i]);
-                if(p->Attack())
+                printInfor(*map, *player, zombie);
+                position = rand()%LANDS;
+                zombie[i].Move(position);
+                cout << "Zombie [" << i << "] moves to land " << position << "." << endl;
+                Land * land = map->GetLand(position);
+                if(!land->IsEmpty())
                 {
-                    //zombie[i].Damage(p->Attack());
-                    cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
+                    Plant *p = land->GetPlant();
+                    p->Visit(zombie[i]);
+                    if(p->Attack())
+                    {
+                        //zombie[i].Damage(p->Attack());
+                        cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
+                    }
+                    //p->Damage(zombie[i].Attack());
+                    cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
+                    if(!zombie[i].isAlive())
+                        cout << "Zombie is killed!" << endl;
+                    if(!p->isAlive())
+                    {
+                        land->Dead();
+                        cout << "Plant " << p->Name() << " is dead!" << endl;
+                    }
                 }
-                //p->Damage(zombie[i].Attack());
-                cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
-                if(!zombie[i].isAlive())
-                    cout << "Zombie is killed!" << endl;
-                if(!p->isAlive())
-                    cout << "Plant " << p->Name() << " is dead!" << endl;
+                system("pause");
+                system("cls");
             }
-            system("pause");
         }
+        printInfor(*map, *player, zombie);
         position = rand()%LANDS;
         player->Move(position);
         Land *l = map->GetLand(position);
@@ -195,9 +207,10 @@ int main()
                 cout << "oh no?" << endl;
                 map->Healing(p->HpBack());
                 cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
+                system("pause");
+                system("cls");
             }
         }
-        system("pause");
 
         // end game condition
         if (map->IsNonPlant())
@@ -212,7 +225,7 @@ int main()
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
         }
-        system("cls");
+        //system("cls");
         //break;
     }
 
@@ -249,7 +262,8 @@ void printInfor(const Map & map, const Player & player, const Zombie * zombie)
     cout << "Zombie information:" << endl;
     for(int i=0; i<Zombie::TotalNum; ++i)
     {
-        cout << '[' << i << "] " << zombie[i];
+        if(zombie[i].isAlive())
+            cout << '[' << i << "] " << zombie[i];
     }
-    cout << endl << "================================================" << endl;
+    cout << "================================================" << endl;
 }
