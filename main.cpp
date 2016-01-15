@@ -217,8 +217,8 @@ int main()
                         cout << "Zombie is killed!" << endl;
                     if(!p->isAlive())
                     {
-                        land->Dead();
                         cout << "Plant " << p->Name() << " is dead!" << endl;
+                        land->Dead();
                     }
                 }
                 system("pause");
@@ -270,8 +270,9 @@ bool endGame(const Map & map, const Zombie * zombie)
 
 bool allZombiesDie(const Zombie * zombie)
 {
-    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive(); ++i)
-        return (i==Zombie::TotalNum-1);
+    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive() && i==Zombie::TotalNum; ++i)
+        return true;
+    return false;
 }
 
 bool enoughMoney(const vector<Plant*> & plant, const Player * player)
