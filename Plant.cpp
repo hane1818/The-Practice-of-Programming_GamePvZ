@@ -3,6 +3,15 @@
 #include"Plant.h"
 using namespace std;
 int BombPlant::deadNum=0;
+std::ostream & operator << (std::ostream &os, const Plant &p)
+{
+    os<<p.Name()<<" "<<"HP: "<<p.Hp();
+    if(p.Round()>0)
+    {
+        os<<"("<<p.Round()<<" more visit(s) )";
+    }
+    return os;
+}
 void Plant::readFile(fstream & ifs,string buffer[])
 {
     std::string str;
@@ -28,7 +37,6 @@ CoinPlant::CoinPlant(std::fstream & ifs)
         readFile(ifs,buffer);
         round_=atoi(buffer[4].c_str());
         giveMoney_=atoi(buffer[5].c_str());
-        type_='C';
         roundtimes_=0;
     }
     else
@@ -42,7 +50,6 @@ HornPlant::HornPlant(std::fstream & ifs)
     {
         std::string buffer[6];
         readFile(ifs,buffer);
-        type_='S';
         damage_=atoi(buffer[4].c_str());
     }
     else
@@ -56,7 +63,6 @@ BombPlant::BombPlant(std::fstream & ifs)
     {
         std::string buffer[6];
         readFile(ifs,buffer);
-        type_='B';
     }
     else
     {
@@ -69,7 +75,6 @@ HealPlant::HealPlant(std::fstream & ifs)
     {
         std::string buffer[6];
         readFile(ifs,buffer);
-        type_='H';
         hpBack_=atoi(buffer[4].c_str());
     }
     else
@@ -77,4 +82,3 @@ HealPlant::HealPlant(std::fstream & ifs)
         std::cout<<"Cannot read."<<std::endl;
     }
 }
-
