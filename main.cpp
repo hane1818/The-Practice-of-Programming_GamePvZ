@@ -142,40 +142,44 @@ int main()
                     cout << "You have earned $" << visit << "! Now you have $" << player->Money();
                     break;
                 }
+                else break;
             }
-            if (!enoughMoney(plant, player))
+            else
             {
-                cout << "You don't have enough money to plant anything" << endl;
-                break;
-            }
-            else if (land->IsEmpty())
-            {
-                for(size_t i=0; i<plant.size(); ++i)
+                if (!enoughMoney(plant, player))
                 {
-                    cout << "[" << i << "] " ;
-                    plant[i]->Print();
-                    cout << endl;
+                    cout << "You don't have enough money to plant anything" << endl;
+                    break;
                 }
-                cout << endl << "Player $" << player->Money() ;
-                cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
-                getline(cin, input);
-                if(!input.empty())
+                else
                 {
-                    istringstream stream( input );
-                    stream >> choice;
-                    if(choice > plant.size() || choice < 0) choice = plant.size();
+                    for(size_t i=0; i<plant.size(); ++i)
+                    {
+                        cout << "[" << i << "] " ;
+                        plant[i]->Print();
+                        cout << endl;
+                    }
+                    cout << endl << "Player $" << player->Money() ;
+                    cout << ":\tEnter your choice (" << plant.size() << " to give up, default: " << choice << ")...>";
+                    getline(cin, input);
+                    if(!input.empty())
+                    {
+                        istringstream stream( input );
+                        stream >> choice;
+                        if(choice > plant.size() || choice < 0) choice = plant.size();
+                    }
+                    if(choice != plant.size())
+                    {
+                        map->GetLand(player->Pos())->Planting(*player, *plant[choice]);
+                        cout << "You have planted " << plant[choice]->Name() << " at land " << player->Pos() << " !" << endl;
+                    }
+                    break;
                 }
-                if(choice != plant.size())
+                if(choice != plant.size() && plant[choice]->Price() > player->Money())
                 {
-                    map->GetLand(player->Pos())->Planting(*player, *plant[choice]);
-                    cout << "You have planted " << plant[choice]->Name() << " at land " << player->Pos() << " !" << endl;
+                    cout << "Not enough money! Please input again!" << endl;
+                    system("pause");
                 }
-                break;
-            }
-            if(choice != plant.size() && plant[choice]->Price() > player->Money())
-            {
-                cout << "Not enough money! Please input again!" << endl;
-                system("pause");
             }
         }
         while (true);
