@@ -18,6 +18,7 @@ public:
     static constexpr int ZOMBIE_MAX=10;
     static constexpr int ZOMBIE_MIN=1;
 private:
+    void initPlant();
     Player *player_=nullptr;
     Zombie *zombie_=nullptr;
     Map *map_=nullptr;
