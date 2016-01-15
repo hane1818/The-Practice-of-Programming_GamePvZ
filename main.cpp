@@ -134,8 +134,8 @@ int main()
                 int visit = p->Visit(*player);
                 if(visit < 0)
                 {
-                    map->Healing(p->HpBack());
-                    cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
+                    map->Healing(-visit);
+                    cout << "All your plants have recovered "<< -visit << " HP!" << endl;
                     break;
                 }
                 else if (visit)
@@ -207,10 +207,10 @@ int main()
                 if(!land->IsEmpty())
                 {
                     Plant *p = land->GetPlant();
-                    p->Visit(zombie[i]);
-                    if(p->Attack())
+                    int visit = p->Visit(zombie[i]);
+                    if(visit)
                     {
-                        cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
+                        cout << p->Name() << " gives " << visit << " damage to the zombie!" << endl;
                     }
                     cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
                     if(!zombie[i].isAlive())
