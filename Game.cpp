@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
                                    player_(new Player),zombie_(new Zombie[numOfZombie_]),map_(new Map(numOfLand_))
 {
@@ -51,10 +53,30 @@ Game::~Game()
     }
 }
 
+bool Game::endGame()
+{
+    if (map_->IsNonPlant())
+    {
+        cout << endl << "Oh no... You have no plant on the map ...." << endl;
+        return true;
+    }
+    else if (BombPlant::deadNum > numOfZombie_/2)
+    {
+        cout << endl << "You lose the game since you cannot use that many bomb plants!" << endl;
+        return true;
+    }
+    else if (allZombiesDie())
+    {
+        cout << endl << "Congratulations! You have killed all zombies!" << endl;
+        return true;
+    }
+    return false;
+}
+
 void Game::initPlant()
 {
-    std::fstream fin("plants.txt", std::fstream::in);
-    std::string str;
+    fstream fin("plants.txt", fstream::in);
+    string str;
     if(fin)
     {
         while(fin >> str)
@@ -93,15 +115,21 @@ void Game::initPlant()
     }
 }
 
+bool Game::allZombiesDie()
+{
+    for(int i=0; i<numOfZombie_ && !zombie_[i].isAlive(); ++i)
+        return (i==numOfZombie_-1);
+}
+
 std::ostream & operator << (std::ostream & os, const Game & game)
 {
     game.map_->Display(*game.player_, game.zombie_);
-    std::cout << "------------------------------------------------" << std::endl;
-    std::cout << "Zombie information:" << std::endl;
+    cout << "------------------------------------------------" << endl;
+    cout << "Zombie information:" << endl;
     for(int i=0; i<game.numOfZombie_; ++i)
     {
         if(game.zombie_[i].isAlive())
-            std::cout << '[' << i << "] " << game.zombie_[i];
+            cout << '[' << i << "] " << game.zombie_[i];
     }
-    std::cout << "================================================" << std::endl;
+    cout << "================================================" << endl;
 }
