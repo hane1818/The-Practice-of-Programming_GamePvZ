@@ -34,7 +34,9 @@ public:
     }
     void Planting(Player &p , Plant & x) // Plant sth in the land
     {
+        std::cout << x.Type() << "/";
         plant_ = x.New();
+        std::cout << plant_->Type() << "/";
         isEmpty_ = false;
         p.CostMoney(x.Price());
     }
@@ -59,6 +61,12 @@ std::ostream & operator << (std::ostream &os, const Land &l)
     else
     {
         os << *(l.GetPlant());
+        std::cout << "* " << l.GetPlant()->Type();
+        if(l.GetPlant()->Type() == 'C')
+        {
+            std::cout << "***" << std::endl;
+            os << l.GetPlant()->Round() << "more visit(s)" << std::endl;
+        }
     };
     return os;
 }
