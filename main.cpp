@@ -174,6 +174,10 @@ int main()
                         map->GetLand(player->Pos())->Planting(*player, *plant[choice]);
                         cout << "You have planted " << plant[choice]->Name() << " at land " << player->Pos() << " !" << endl;
                     }
+                    else
+                    {
+                        cout << "You give up!" << endl;
+                    }
                     break;
                 }
                 if(choice != plant.size() && plant[choice]->Price() > player->Money())
@@ -185,6 +189,11 @@ int main()
         }
         while (true);
         system("pause");
+        if(endGame(*map, zombie))
+        {
+            system("pause");
+            return 0;
+        }
         system("cls");
         for (int i=0; i<ZOMBIES; ++i)
         {
@@ -213,6 +222,11 @@ int main()
                     }
                 }
                 system("pause");
+                if(endGame(*map, zombie))
+                {
+                    system("pause");
+                    return 0;
+                }
                 system("cls");
             }
         }
@@ -243,15 +257,19 @@ bool endGame(const Map & map, const Zombie * zombie)
     if (map.IsNonPlant())
     {
         cout << "Oh no... You have no plant on the map ...." << endl;
+        return true;
     }
     else if (BombPlant::deadNum >= Zombie::TotalNum/2)
     {
         cout << "You lose the game since you cannot use that many bomb plants!" << endl;
+        return true;
     }
     else if (allZombiesDie(zombie))
     {
         cout << "Congratulations! You have killed all zombies!" << endl;
+        return true;
     }
+    return false;
 }
 
 bool allZombiesDie(const Zombie * zombie)
