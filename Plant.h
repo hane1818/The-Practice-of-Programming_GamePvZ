@@ -16,7 +16,7 @@ class Plant
 
 public:
     Plant()=default;
-    Plant(const std::string name,const int price=0,const int hp=0):name_(name),price_(price),hp_(hp){};
+    Plant(const std::string name,const int price=0,const int hp=0):name_(name),price_(price),hp_(hp),initialHp_(hp_){};
     Plant(const Plant &p):Plant(p.name_,p.price_,p.hp_) {};
     virtual ~Plant()
     {
@@ -46,7 +46,7 @@ protected:
     std::string name_;
     int price_=0;
     int hp_=0;
-    int initialHp_=0;
+    int initialHp_=hp_;
 };
 #endif // PLANT_H_
 //==================================================================//
