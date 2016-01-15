@@ -14,7 +14,7 @@ public:
                                  player_(new Player),
                                  zombie_(new Zombie[numOfZombie_]),
                                  map_(new Map(numOfLand_));
-
+    ~Game();
     static constexpr int LAND_DEFAULT=8;
     static constexpr int LAND_MAX=10;
     static constexpr int LAND_MIN=1;
