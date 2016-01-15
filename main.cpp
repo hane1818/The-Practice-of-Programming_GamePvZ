@@ -244,7 +244,7 @@ bool endGame(const Map & map, const Zombie * zombie)
     {
         cout << "Oh no... You have no plant on the map ...." << endl;
     }
-    else if (BombPlant::deadNum >= ZOMBIES/2)
+    else if (BombPlant::deadNum >= Zombie::TotalNum/2)
     {
         cout << "You lose the game since you cannot use that many bomb plants!" << endl;
     }
