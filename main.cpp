@@ -137,7 +137,7 @@ int main()
             }
             else if (visit)
             {
-                cout << "You have earned $" << visit << "! Now you have $" << player->Money();
+                cout << "You have earned $" << visit << "! Now you have $" << player->Money() << endl;
             }
         }
         else
