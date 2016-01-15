@@ -8,6 +8,8 @@
 
 class Game
 {
+    friend std::ostream & operator << (std::ostream & os, const Game & game);
+
 public:
     Game(int lands, int zombies);
     ~Game();
@@ -27,4 +29,5 @@ private:
     int numOfLand_=LAND_DEFAULT;
 };
 
+std::ostream & operator << (std::ostream & os, const Game & game);
 #endif // GAME__

@@ -92,3 +92,16 @@ void Game::initPlant()
         }
     }
 }
+
+std::ostream & operator << (std::ostream & os, const Game & game)
+{
+    game.map_->Display(*game.player_, game.zombie_);
+    std::cout << "------------------------------------------------" << std::endl;
+    std::cout << "Zombie information:" << std::endl;
+    for(int i=0; i<game.numOfZombie_; ++i)
+    {
+        if(game.zombie_[i].isAlive())
+            std::cout << '[' << i << "] " << game.zombie_[i];
+    }
+    std::cout << "================================================" << std::endl;
+}
