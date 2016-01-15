@@ -12,6 +12,7 @@
 
 using namespace std;
 
+bool endGame(const Map & map, const Zombie * zombie);
 bool allZombiesDie(const Zombie * zombie);
 bool enoughMoney(const vector<Plant*> & plant, const Player * player);
 void printInfor(const Map & map, const Player & player, const Zombie * zombie);
@@ -219,18 +220,7 @@ int main()
         player->Move(position);
 
         // end game condition
-        if (map->IsNonPlant())
-        {
-            cout << "Oh no... You have no plant on the map ...." << endl;
-        }
-        else if (BombPlant::deadNum >= ZOMBIES/2)
-        {
-            cout << "You lose the game since you cannot use that many bomb plants!" << endl;
-        }
-        else if (allZombiesDie(zombie))
-        {
-            cout << "Congratulations! You have killed all zombies!" << endl;
-        }
+
         system("cls");
         //break;
     }
@@ -246,6 +236,22 @@ int main()
     delete [] zombie;
 
     return 0;
+}
+
+bool endGame(const Map & map, const Zombie * zombie)
+{
+    if (map.IsNonPlant())
+    {
+        cout << "Oh no... You have no plant on the map ...." << endl;
+    }
+    else if (BombPlant::deadNum >= ZOMBIES/2)
+    {
+        cout << "You lose the game since you cannot use that many bomb plants!" << endl;
+    }
+    else if (allZombiesDie(zombie))
+    {
+        cout << "Congratulations! You have killed all zombies!" << endl;
+    }
 }
 
 bool allZombiesDie(const Zombie * zombie)
