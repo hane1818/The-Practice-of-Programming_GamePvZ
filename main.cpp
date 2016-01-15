@@ -267,9 +267,8 @@ bool endGame(const Map & map, const Zombie * zombie)
 
 bool allZombiesDie(const Zombie * zombie)
 {
-    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive() && i==Zombie::TotalNum; ++i)
-        return true;
-    return false;
+    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive(); ++i)
+        return (i==Zombie::TotalNum-1);
 }
 
 bool enoughMoney(const vector<Plant*> & plant, const Player * player)
