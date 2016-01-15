@@ -53,13 +53,22 @@ Game::~Game()
     }
 }
 
-void Game::movePlayer(int pos)
+void Game::movePlayer(int pos) const
 {
-    player_->Move(pos);
+    player_->Move(limitStep(pos));
 }
-void Game::moveZombie(Zombie & z, int pos)
+void Game::moveZombie(Zombie & z, int pos) const
 {
-    z.Move(pos);
+    z.Move(limitStep(pos));
+}
+int Game::limitStep(int pos) const
+{
+    if(pos > numOfLand_-1)
+        return numOfLand_-1;
+    else if (pos < 0)
+        return 0;
+    else
+        return pos;
 }
 
 bool Game::endGame() const
