@@ -18,6 +18,7 @@ void Plant::readFile(fstream & ifs,string buffer[])
     name_=buffer[1];
     price_=atoi(buffer[2].substr(1,buffer[2].size()).c_str());
     hp_=atoi(buffer[3].c_str());
+    initialHp_=hp_;
 }
 CoinPlant::CoinPlant(std::fstream & ifs)
 {

@@ -22,7 +22,12 @@ public:
     {
         std::cout<<"~Plant()"<<std::endl;
     };
-    virtual void Damage(const int hurt) {hp_-=hurt;}//plant is attacked.
+    virtual void Damage(const int hurt)//plant is attacked.
+    {
+        hp_-=hurt;
+        if(hp_<0){hp_=0;}
+        else if(hp_>initialHp_){hp_=initialHp_;}
+    }
     bool isAlive()const {return (hp_>0);}
     const std::string Name()const {return name_;}
     const int Price()const {return price_;}
@@ -42,6 +47,7 @@ protected:
     std::string name_;
     int price_=0;
     int hp_=0;
+    int initialHp_=0;
 };
 #endif // PLANT_H_
 //==================================================================//
