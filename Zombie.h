@@ -10,6 +10,7 @@ private:
     int pos_;
     int hp_;
     int attack_;
+    static const int MaxMove = 3;
 public:
     static int TotalNum;
     Zombie():pos_(0),hp_(50),attack_(15){};
@@ -27,7 +28,21 @@ public:
     const int Hp() const { return hp_;};
     const int Attack() const {  return attack_;};
     const int Pos() const { return pos_;};
-    void Move(const int index){  pos_ = index;};
+    void Move(const int index)
+    {
+        if( (index - pos_) > MaxMove)
+        {
+            pos_ = pos_ + MaxMove;
+        }
+        else if( (pos_ - index) > MaxMove)
+        {
+            pos_ = pos_ - MaxMove;
+        }
+        else
+        {
+            pos_ = index;
+        }
+    };
     void Damage(const int damage){ hp_ -= damage;};
     bool isAlive()const {return (hp_ > 0);};
 };

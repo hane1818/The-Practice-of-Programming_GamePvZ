@@ -36,7 +36,7 @@ int main()
     HornPlant x("HornPlant",50,50,10);
     for(int i=0; i<lands; i++)
     {
-<<<<<<< HEAD
+
         if(p.Pos()==i)
             map.GetLand(i)->Planting(p,x);
     }
@@ -50,7 +50,7 @@ int main()
             cout << map.IsNonPlant() << endl;
             break;
         }
-=======
+
         if(p.Money()>0)
         {
             if(map.GetLand(p.Pos())->IsEmpty())
@@ -101,7 +101,6 @@ int main()
         map.Display(p,z);
         system("pause");
         system("cls");
->>>>>>> master
     }
     delete []z;
     return 0;
