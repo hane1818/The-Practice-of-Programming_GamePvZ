@@ -1,6 +1,6 @@
 #include "Game.h"
-#include <cstdlib>
-#include <ctime>
+#include <fstream>
+#include <string>
 
 Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
                                    player_(new Player),zombie_(new Zombie[numOfZombie_]),map_(new Map(numOfLand_))
@@ -36,6 +36,7 @@ Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
         delete [] zombie_;
         zombie_=z;
     }
+    initPlant();
 }
 
 Game::~Game()
@@ -47,5 +48,47 @@ Game::~Game()
     {
         delete plant_.back();
         plant_.pop_back();
+    }
+}
+
+void Game::initPlant()
+{
+    std::fstream fin("plants.txt", std::fstream::in);
+    std::string str;
+    if(fin)
+    {
+        while(fin >> str)
+        {
+            Plant *tmp = nullptr;
+            switch(str[0])
+            {
+            case 'C':
+            {
+                tmp = new CoinPlant(fin);
+                break;
+            }
+            case 'S':
+            {
+                tmp = new HornPlant(fin);
+                break;
+            }
+            case 'B':
+            {
+                tmp = new BombPlant(fin);
+                break;
+            }
+            case 'H':
+            {
+                tmp = new HealPlant(fin);
+                break;
+            }
+            default:
+                continue;
+            }
+            if(tmp)
+            {
+                plant_.push_back(tmp);
+            }
+        }
     }
 }
