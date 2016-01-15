@@ -6,6 +6,9 @@
 #include<cstdlib>
 #include<time.h>
 
+bool allZombiesDie(const Zombie * zombie);
+void printInfor(const Map & map, const Player & player, const Zombie * zombie);
+
 using namespace std;
 int main()
 {
@@ -23,19 +26,31 @@ int main()
 
     /*Set pos*/
     p.Move(rand()%lands);
-    for(int i=0;i<Zombie::TotalNum;i++)
+    for(int i=0; i<Zombie::TotalNum; i++)
         z[i].Move(rand()%lands);
 
     /*Display*/
-    if(map.IsNonPlant())
-    {
-        cout << "The map is so clear!" << endl;
-    }
     map.Display(p,z);
+    cout << map.IsNonPlant() << endl;
     /*Plainting*/
-    HealPlant x("HealPlant",50,50,10);
-    for(int i=0;i<COUNT;i++)
+    HornPlant x("HornPlant",50,50,10);
+    for(int i=0; i<lands; i++)
     {
+<<<<<<< HEAD
+        if(p.Pos()==i)
+            map.GetLand(i)->Planting(p,x);
+    }
+    cout << map.IsNonPlant() << endl;
+    for(int i=0;i<10;i++)
+    {
+        map.GetLand(p.Pos())->GetPlant()->Damage(z[0].Attack());
+        if( map.GetLand(p.Pos())->Dead() )
+        {
+            cout << "Plant dead!" << endl;
+            cout << map.IsNonPlant() << endl;
+            break;
+        }
+=======
         if(p.Money()>0)
         {
             if(map.GetLand(p.Pos())->IsEmpty())
@@ -86,6 +101,7 @@ int main()
         map.Display(p,z);
         system("pause");
         system("cls");
+>>>>>>> master
     }
     delete []z;
     return 0;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include"Zombie.h"
 
+int Zombie::TotalNum = 0;
 
 std::ostream & operator << (std::ostream & os, const Zombie &z)
 {
