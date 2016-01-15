@@ -133,7 +133,7 @@ int main()
                 int visit = p->Visit(*player);
                 if(visit < 0)
                 {
-                    map->Healing(p->HpBack());
+                    map->Healing(p->Visit(*player));
                     cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
                     break;
                 }

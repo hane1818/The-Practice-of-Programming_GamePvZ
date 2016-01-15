@@ -34,9 +34,7 @@ public:
     }
     void Planting(Player &p , Plant & x) // Plant sth in the land
     {
-        std::cout << x.Type() << "/";
         plant_ = x.New();
-        std::cout << plant_->Type() << "/";
         isEmpty_ = false;
         p.CostMoney(x.Price());
     }
