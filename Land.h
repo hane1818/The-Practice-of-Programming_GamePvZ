@@ -61,12 +61,6 @@ std::ostream & operator << (std::ostream &os, const Land &l)
     else
     {
         os << *(l.GetPlant());
-        std::cout << "* " << l.GetPlant()->Type();
-        if(l.GetPlant()->Type() == 'C')
-        {
-            std::cout << "***" << std::endl;
-            os << l.GetPlant()->Round() << "more visit(s)" << std::endl;
-        }
     };
     return os;
 }
