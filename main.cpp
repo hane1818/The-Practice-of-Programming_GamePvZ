@@ -160,12 +160,14 @@ int main()
             }
         }
         while (true);
-
+        system("pause");
+        system("cls");
         int position;
         for (int i=0; i<ZOMBIES; ++i)
         {
             if (zombie[i].isAlive())
             {
+                printInfor(*map, *player, zombie);
                 position = rand()%LANDS;
                 zombie[i].Move(position);
                 cout << "Zombie [" << i << "] moves to land " << position << "." << endl;
@@ -185,13 +187,15 @@ int main()
                         cout << "Zombie is killed!" << endl;
                     if(!p->isAlive())
                     {
-                        l->Dead();
+                        land->Dead();
                         cout << "Plant " << p->Name() << " is dead!" << endl;
                     }
                 }
                 system("pause");
+                system("cls");
             }
         }
+        printInfor(*map, *player, zombie);
         position = rand()%LANDS;
         player->Move(position);
         Land *l = map->GetLand(position);
