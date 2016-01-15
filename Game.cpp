@@ -53,7 +53,16 @@ Game::~Game()
     }
 }
 
-bool Game::endGame()
+void Game::movePlayer(int pos)
+{
+    player_->Move(pos);
+}
+void Game::moveZombie(Zombie & z, int pos)
+{
+    z.Move(pos);
+}
+
+bool Game::endGame() const
 {
     if (map_->IsNonPlant())
     {
@@ -115,7 +124,7 @@ void Game::initPlant()
     }
 }
 
-bool Game::allZombiesDie()
+bool Game::allZombiesDie() const
 {
     for(int i=0; i<numOfZombie_ && !zombie_[i].isAlive(); ++i)
         return (i==numOfZombie_-1);

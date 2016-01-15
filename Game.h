@@ -13,7 +13,9 @@ class Game
 public:
     Game(int lands, int zombies);
     ~Game();
-    bool endGame();
+    void movePlayer(int pos);
+    void moveZombie(Zombie & z, int pos);
+    bool endGame() const;
     static constexpr int LAND_DEFAULT=8;
     static constexpr int LAND_MAX=10;
     static constexpr int LAND_MIN=1;
@@ -28,7 +30,7 @@ private:
     std::vector<Plant*> plant_;
     int numOfZombie_=ZOMBIE_DEFAULT;
     int numOfLand_=LAND_DEFAULT;
-    bool allZombiesDie();
+    bool allZombiesDie() const;
 };
 
 std::ostream & operator << (std::ostream & os, const Game & game);
