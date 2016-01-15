@@ -121,15 +121,34 @@ int main()
     int choice = plant.size();
     while(true)
     {
+        int position;
         printInfor(*map, *player, zombie);
         do
         {
+            position = player->Pos();
+            Land * land = map->GetLand(position);
+            if(!land->IsEmpty())
+            {
+                Plant *p = land->GetPlant();
+                int visit = p->Visit(*player);
+                if(visit < 0)
+                {
+                    map->Healing(p->HpBack());
+                    cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
+                    break;
+                }
+                else if (visit)
+                {
+                    cout << "You have earned $" << visit << "! Now you have $" << player->Money();
+                    break;
+                }
+            }
             if (!enoughMoney(plant, player))
             {
                 cout << "You don't have enough money to plant anything" << endl;
                 break;
             }
-            else if (map->GetLand(player->Pos())->IsEmpty())
+            else if (land->IsEmpty())
             {
                 for(size_t i=0; i<plant.size(); ++i)
                 {
@@ -162,7 +181,6 @@ int main()
         while (true);
         system("pause");
         system("cls");
-        int position;
         for (int i=0; i<ZOMBIES; ++i)
         {
             if (zombie[i].isAlive())
@@ -178,10 +196,8 @@ int main()
                     p->Visit(zombie[i]);
                     if(p->Attack())
                     {
-                        //zombie[i].Damage(p->Attack());
                         cout << p->Name() << " gives " << p->Attack() << " damage to the zombie!" << endl;
                     }
-                    //p->Damage(zombie[i].Attack());
                     cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie[i].Attack() << endl;
                     if(!zombie[i].isAlive())
                         cout << "Zombie is killed!" << endl;
@@ -195,22 +211,8 @@ int main()
                 system("cls");
             }
         }
-        printInfor(*map, *player, zombie);
         position = rand()%LANDS;
         player->Move(position);
-        Land *l = map->GetLand(position);
-        if(!l->IsEmpty())
-        {
-            Plant *p = l->GetPlant();
-            if(p->HpBack())
-            {
-                cout << "oh no?" << endl;
-                map->Healing(p->HpBack());
-                cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
-                system("pause");
-                system("cls");
-            }
-        }
 
         // end game condition
         if (map->IsNonPlant())
@@ -225,7 +227,7 @@ int main()
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
         }
-        //system("cls");
+        system("cls");
         //break;
     }
 
