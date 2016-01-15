@@ -128,10 +128,11 @@ public:
     }
     virtual int Visit(Zombie &z)
     {
+        int atk=hp_;
         hp_=0;
-        z.Damage(hp_);
+        z.Damage(atk);
         deadNum++;
-        return hp_;
+        return atk;
     }
     virtual Plant* New(){return new BombPlant(*this);}
 };

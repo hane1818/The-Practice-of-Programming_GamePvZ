@@ -50,7 +50,7 @@ public:
     }
 };
 
-std::ostream & operator << (std::ostream &os, const Land &l)
+inline std::ostream & operator << (std::ostream &os, const Land &l)
 {
     if(l.IsEmpty())
     {

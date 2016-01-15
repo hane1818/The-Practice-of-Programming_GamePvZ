@@ -124,28 +124,25 @@ int main()
     {
         int position;
         printInfor(*map, *player, zombie);
-        do
+        position = player->Pos();
+        Land * land = map->GetLand(position);
+        if(!land->IsEmpty())
         {
-            position = player->Pos();
-            Land * land = map->GetLand(position);
-            if(!land->IsEmpty())
+            Plant *p = land->GetPlant();
+            int visit = p->Visit(*player);
+            if(visit < 0)
             {
-                Plant *p = land->GetPlant();
-                int visit = p->Visit(*player);
-                if(visit < 0)
-                {
-                    map->Healing(-visit);
-                    cout << "All your plants have recovered "<< -visit << " HP!" << endl;
-                    break;
-                }
-                else if (visit)
-                {
-                    cout << "You have earned $" << visit << "! Now you have $" << player->Money();
-                    break;
-                }
-                else break;
+                map->Healing(-visit);
+                cout << "All your plants have recovered "<< -visit << " HP!" << endl;
             }
-            else
+            else if (visit)
+            {
+                cout << "You have earned $" << visit << "! Now you have $" << player->Money();
+            }
+        }
+        else
+        {
+            do
             {
                 if (!enoughMoney(plant, player))
                 {
@@ -186,8 +183,8 @@ int main()
                     system("pause");
                 }
             }
+            while(true);
         }
-        while (true);
         system("pause");
         if(endGame(*map, zombie))
         {
@@ -217,8 +214,8 @@ int main()
                         cout << "Zombie is killed!" << endl;
                     if(!p->isAlive())
                     {
-                        land->Dead();
                         cout << "Plant " << p->Name() << " is dead!" << endl;
+                        land->Dead();
                     }
                 }
                 system("pause");
@@ -235,7 +232,7 @@ int main()
         player->Move(position);
     }
 
-    // destruct
+// destruct
     while(!plant.empty())
     {
         delete plant.back();
@@ -270,8 +267,9 @@ bool endGame(const Map & map, const Zombie * zombie)
 
 bool allZombiesDie(const Zombie * zombie)
 {
-    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive(); ++i)
-        return (i==Zombie::TotalNum-1);
+    for(int i=0; i<Zombie::TotalNum && !zombie[i].isAlive() && i==Zombie::TotalNum; ++i)
+        return true;
+    return false;
 }
 
 bool enoughMoney(const vector<Plant*> & plant, const Player * player)
