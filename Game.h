@@ -13,9 +13,11 @@ class Game
 public:
     Game(int lands, int zombies);
     ~Game();
+    void doZombie(int z_ind) const;
     void movePlayer(int pos) const;
     void moveZombie(Zombie & z, int pos) const;
     bool endGame() const;
+    bool aliveZombie(int z_ind) const { return zombie_[z_ind].isAlive(); }
     static constexpr int LAND_DEFAULT=8;
     static constexpr int LAND_MAX=10;
     static constexpr int LAND_MIN=1;

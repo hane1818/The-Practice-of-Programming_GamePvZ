@@ -5,7 +5,7 @@
 using namespace std;
 
 Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
-                                   player_(new Player),zombie_(new Zombie[numOfZombie_]),map_(new Map(numOfLand_))
+    player_(new Player),zombie_(new Zombie[numOfZombie_]),map_(new Map(numOfLand_))
 {
     Map *m;
     if(numOfLand_ < LAND_MIN)
@@ -50,6 +50,31 @@ Game::~Game()
     {
         delete plant_.back();
         plant_.pop_back();
+    }
+}
+
+void Game::doZombie(int z_ind) const
+{
+    int position = rand()%numOfLand_;
+    zombie_[z_ind].Move(position);
+    cout << "Zombie [" << z_ind << "] moves to land " << position << "." << endl;
+    Land * land = map_->GetLand(position);
+    if(!land->IsEmpty())
+    {
+        Plant *p = land->GetPlant();
+        int visit = p->Visit(zombie_[z_ind]);
+        if(visit)
+        {
+            cout << p->Name() << " gives " << visit << " damage to the zombie!" << endl;
+        }
+        cout << "Zombie eats plant " << p->Name() << " and cause damage " << zombie_[z_ind].Attack() << endl;
+        if(!zombie_[z_ind].isAlive())
+            cout << "Zombie is killed!" << endl;
+        if(!p->isAlive())
+        {
+            land->Dead();
+            cout << "Plant " << p->Name() << " is dead!" << endl;
+        }
     }
 }
 
