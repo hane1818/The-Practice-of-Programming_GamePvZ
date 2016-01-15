@@ -22,7 +22,7 @@ public:
     {
         std::cout<<"~Plant()"<<std::endl;
     };
-    virtual void Damage(const int hurt)//plant is attacked.
+    void Damage(const int hurt)//plant is attacked.
     {
         hp_-=hurt;
         if(hp_>initialHp_){hp_=initialHp_;}
