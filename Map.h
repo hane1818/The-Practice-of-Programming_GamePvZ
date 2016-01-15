@@ -1,24 +1,18 @@
 #ifndef MAP__
 #define MAP__
 
-#include <cstdio>
-#include <iostream>
-#include <cstdlib>
 #include "Land.h"
-#include "Player.h"
-#include "Zombie.h"
+
+class Player;
+class Zombie;
 
 class Map
 {
-
 private:
     Land * map_;
     size_t size_;
 public:
-    Map(int size):map_(nullptr),size_(size)
-    {
-        map_ = new Land[size];
-    };
+    Map(int size):map_(nullptr),size_(size) { map_ = new Land[size]; };
     ~Map()
     {
         delete []map_;
@@ -29,60 +23,11 @@ public:
     {
         return &map_[index];
     }
-
-    const int Rand(Player & p)const //Move player and Return index
-    {
-        int index = rand() % size_ ;
-        p.Move(index);
-        return index;
-    }
-
-    const int Rand(Zombie & z)const //Move a zombie and Return index
-    {
-        int index = rand() % size_ ;
-        z.Move(index);
-        return index;
-    }
-
-    void Healing(int hpBack)const
-    {
-        for(int i=0;i<size_;i++)
-        {
-            if(!GetLand(i)->IsEmpty())
-            {
-                GetLand(i)->GetPlant()->Damage(-hpBack);
-            }
-        }
-    }
-
-    bool IsNonPlant()const
-    {
-        for(int i=0;i<size_;i++)
-        {
-            if(!GetLand(i)->IsEmpty())
-                return false;
-        }
-        return true;
-    }
-
-    void Display(const Player &p , const Zombie * z)const //Display Game Board
-    {
-        for(int i=0;i<size_;i++)
-        {
-            std::cout << "[" << i << "]{" << ((p.Pos() == i) ? "*" : " ");
-            for(int j=0;j<Zombie::TotalNum;j++)
-            {
-                if(z[j].isAlive())
-                {
-                    if(z[j].Pos() == i) std::cout << j;
-                    else std::cout << " ";
-                }
-            }
-            std::cout << "}";
-            std::cout << map_[i];
-            std::cout << std::endl;
-        }
-    }
+    const int Rand(Player & p) const; //Move player and Return index
+    const int Rand(Zombie & z)const; //Move a zombie and Return index
+    void Healing(int hpBack)const;
+    bool IsNonPlant() const;
+    void Display(const Player &p , const Zombie * z) const; //Display Game Board
 };
 
 #endif // MAP

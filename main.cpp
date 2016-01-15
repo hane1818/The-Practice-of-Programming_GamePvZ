@@ -196,9 +196,9 @@ int main()
         {
             if (zombie[i].isAlive())
             {
-                printInfor(*map, *player, zombie);
                 position = rand()%LANDS;
                 zombie[i].Move(position);
+                printInfor(*map, *player, zombie);
                 cout << "Zombie [" << i << "] moves to land " << position << "." << endl;
                 Land * land = map->GetLand(position);
                 if(!land->IsEmpty())

@@ -1,11 +1,10 @@
 #ifndef LAND__
 #define LAND__
 
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include "Player.h"
 #include "Plant.h"
+#include <iostream>
+
+class Player;
 
 /*Land: Is it empty. Which plants it has. plant a plant on it*/
 class Land
@@ -17,49 +16,13 @@ public:
     Land() {};
     Land(Plant * x):plant_(x),isEmpty_(false) {};
     Land(Land & x) {};
-    Land & operator = (const Land & rhs)
-    {
-        plant_ = rhs.plant_;
-        isEmpty_ = rhs.isEmpty_;
-        return (*this);
-    }
+    Land & operator = (const Land & rhs);
     ~Land() {};
-    Plant * GetPlant() const
-    {
-        return plant_;
-    }
-    bool IsEmpty() const //Is the land empty?
-    {
-        return (isEmpty_);
-    }
-    void Planting(Player &p , Plant & x) // Plant sth in the land
-    {
-        plant_ = x.New();
-        isEmpty_ = false;
-        p.CostMoney(x.Price());
-    }
-    bool Dead()
-    {
-        if(plant_->Hp() > 0)
-        {
-            return false;
-        }
-        delete plant_;
-        isEmpty_ = true;
-        return true;
-    }
+    Plant * GetPlant() const { return plant_; }
+    bool IsEmpty() const { return (isEmpty_); } //Is the land empty?
+    void Planting(Player &p , Plant & x); // Plant sth in the land
+    bool Dead();
 };
 
-inline std::ostream & operator << (std::ostream &os, const Land &l)
-{
-    if(l.IsEmpty())
-    {
-        os << "Empty";
-    }
-    else
-    {
-        os << *(l.GetPlant());
-    };
-    return os;
-}
+std::ostream & operator << (std::ostream &os, const Land &l);
 #endif // LAND
