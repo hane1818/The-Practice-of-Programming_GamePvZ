@@ -25,8 +25,7 @@ public:
     virtual void Damage(const int hurt)//plant is attacked.
     {
         hp_-=hurt;
-        if(hp_<0){hp_=0;}
-        else if(hp_>initialHp_){hp_=initialHp_;}
+        if(hp_>initialHp_){hp_=initialHp_;}
     }
     bool isAlive()const {return (hp_>0);}
     const std::string Name()const {return name_;}
