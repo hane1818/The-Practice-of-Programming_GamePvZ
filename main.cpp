@@ -256,17 +256,17 @@ bool endGame(const Map & map, const Zombie * zombie)
 {
     if (map.IsNonPlant())
     {
-        cout << "Oh no... You have no plant on the map ...." << endl;
+        cout << endl << "Oh no... You have no plant on the map ...." << endl;
         return true;
     }
     else if (BombPlant::deadNum > Zombie::TotalNum/2)
     {
-        cout << "You lose the game since you cannot use that many bomb plants!" << endl;
+        cout << endl << "You lose the game since you cannot use that many bomb plants!" << endl;
         return true;
     }
     else if (allZombiesDie(zombie))
     {
-        cout << "Congratulations! You have killed all zombies!" << endl;
+        cout << endl << "Congratulations! You have killed all zombies!" << endl;
         return true;
     }
     return false;
