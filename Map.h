@@ -72,7 +72,11 @@ public:
             std::cout << "[" << i << "]{" << ((p.Pos() == i) ? "*" : " ");
             for(int j=0;j<Zombie::TotalNum;j++)
             {
-                if((z[j].Pos() == i && z[j].isAlive())) std::cout << j;
+                if(z[j].isAlive())
+                {
+                    if(z[j].Pos() == i) std::cout << j;
+                    else std::cout << " ";
+                }
             }
             std::cout << "}";
             std::cout << map_[i];
