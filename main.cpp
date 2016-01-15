@@ -207,9 +207,10 @@ int main()
                 cout << "oh no?" << endl;
                 map->Healing(p->HpBack());
                 cout << "All your plants have recovered "<< p->HpBack() << " HP!" << endl;
+                system("pause");
+                system("cls");
             }
         }
-        system("pause");
 
         // end game condition
         if (map->IsNonPlant())
@@ -224,7 +225,7 @@ int main()
         {
             cout << "Congratulations! You have killed all zombies!" << endl;
         }
-        system("cls");
+        //system("cls");
         //break;
     }
 
