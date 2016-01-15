@@ -13,11 +13,16 @@ class Game
 public:
     Game(int lands, int zombies);
     ~Game();
+    void doPlayer() const;
     void doZombie(int z_ind) const;
     void movePlayer(int pos) const;
     void moveZombie(Zombie & z, int pos) const;
+    void printPlant() const;
+    void printZombies() const;
+    void printPlayer() const;
     bool endGame() const;
     bool aliveZombie(int z_ind) const { return zombie_[z_ind].isAlive(); }
+    const int zombiesNum() const { return numOfZombie_; }
     static constexpr int LAND_DEFAULT=8;
     static constexpr int LAND_MAX=10;
     static constexpr int LAND_MIN=1;
@@ -34,6 +39,7 @@ private:
     int numOfLand_=LAND_DEFAULT;
     int limitStep(int pos) const;
     bool allZombiesDie() const;
+    bool enoughMoney() const;
 };
 
 std::ostream & operator << (std::ostream & os, const Game & game);

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -39,6 +40,10 @@ Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
         zombie_=z;
     }
     initPlant();
+    player_->Move(rand()%numOfLand_);
+    for(int i=0; i<numOfZombie_; ++i)
+        if(zombie_[i].isAlive())
+            zombie_[i].Move(rand()%numOfLand_);
 }
 
 Game::~Game()
@@ -50,6 +55,65 @@ Game::~Game()
     {
         delete plant_.back();
         plant_.pop_back();
+    }
+}
+
+void Game::doPlayer() const
+{
+    static int choice=plant_.size();
+    int position = player_->Pos();
+    Land * land = map_->GetLand(position);
+    if(!land->IsEmpty())
+    {
+        Plant *p = land->GetPlant();
+        int visit = p->Visit(*player_);
+        if(visit < 0)
+        {
+            map_->Healing(-visit);
+            cout << "All your plants have recovered "<< -visit << " HP!" << endl;
+        }
+        else if (visit)
+        {
+            cout << "You have earned $" << visit << "! Now you have $" << player_->Money();
+        }
+    }
+    else
+    {
+        if (!enoughMoney())
+        {
+            cout << "You don't have enough money to plant anything" << endl;
+        }
+        else
+        {
+            do{
+                printPlant();
+                printPlayer();
+                cout << ":\tEnter your choice (" << plant_.size() << " to give up, default: " << choice << ")...>";
+                string input;
+                getline(cin, input);
+                if(!input.empty())
+                {
+                    istringstream stream( input );
+                    stream >> choice;
+                    if(choice > plant_.size() || choice < 0) choice = plant_.size();
+                }
+                if(choice != plant_.size())
+                {
+                    map_->GetLand(player_->Pos())->Planting(*player_, *plant_[choice]);
+                    cout << "You have planted " << plant_[choice]->Name() << " at land " << player_->Pos() << " !" << endl;
+                    break;
+                }
+                else
+                {
+                    cout << "You give up!" << endl;
+                    break;
+                }
+                if((choice != plant_.size() && plant_[choice]->Price() > player_->Money()))
+                    cout << "Not enough money! Please input again!" << endl;
+                system("pause");
+            }
+            while(true);
+        }
     }
 }
 
@@ -76,6 +140,28 @@ void Game::doZombie(int z_ind) const
             cout << "Plant " << p->Name() << " is dead!" << endl;
         }
     }
+}
+
+void Game::printPlant() const
+{
+    for(size_t i=0; i<plant_.size(); ++i)
+    {
+        cout << "[" << i << "] " ;
+        plant_[i]->Print();
+        cout << endl;
+    }
+}
+void Game::printZombies() const
+{
+    for(int i=0; i<numOfZombie_; ++i)
+    {
+        if(zombie_[i].isAlive())
+            cout << '[' << i << "] " << zombie_[i];
+    }
+}
+void Game::printPlayer() const
+{
+    cout << endl << "Player $" << player_->Money() ;
 }
 
 void Game::movePlayer(int pos) const
@@ -162,6 +248,13 @@ bool Game::allZombiesDie() const
 {
     for(int i=0; i<numOfZombie_ && !zombie_[i].isAlive(); ++i)
         return (i==numOfZombie_-1);
+}
+
+bool Game::enoughMoney() const
+{
+    for (Plant* p : plant_)
+        if (p->Price() <= player_->Money()) return true;
+    return false;
 }
 
 std::ostream & operator << (std::ostream & os, const Game & game)
