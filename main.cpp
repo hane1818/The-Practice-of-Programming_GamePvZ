@@ -12,6 +12,7 @@
 
 using namespace std;
 
+bool endGame(const Map & map, const Zombie * zombie);
 bool allZombiesDie(const Zombie * zombie);
 bool enoughMoney(const vector<Plant*> & plant, const Player * player);
 void printInfor(const Map & map, const Player & player, const Zombie * zombie);
@@ -173,6 +174,10 @@ int main()
                         map->GetLand(player->Pos())->Planting(*player, *plant[choice]);
                         cout << "You have planted " << plant[choice]->Name() << " at land " << player->Pos() << " !" << endl;
                     }
+                    else
+                    {
+                        cout << "You give up!" << endl;
+                    }
                     break;
                 }
                 if(choice != plant.size() && plant[choice]->Price() > player->Money())
@@ -184,6 +189,11 @@ int main()
         }
         while (true);
         system("pause");
+        if(endGame(*map, zombie))
+        {
+            system("pause");
+            return 0;
+        }
         system("cls");
         for (int i=0; i<ZOMBIES; ++i)
         {
@@ -212,27 +222,17 @@ int main()
                     }
                 }
                 system("pause");
+                if(endGame(*map, zombie))
+                {
+                    system("pause");
+                    return 0;
+                }
                 system("cls");
             }
         }
+
         position = rand()%LANDS;
         player->Move(position);
-
-        // end game condition
-        if (map->IsNonPlant())
-        {
-            cout << "Oh no... You have no plant on the map ...." << endl;
-        }
-        else if (BombPlant::deadNum >= ZOMBIES/2)
-        {
-            cout << "You lose the game since you cannot use that many bomb plants!" << endl;
-        }
-        else if (allZombiesDie(zombie))
-        {
-            cout << "Congratulations! You have killed all zombies!" << endl;
-        }
-        system("cls");
-        //break;
     }
 
     // destruct
@@ -246,6 +246,26 @@ int main()
     delete [] zombie;
 
     return 0;
+}
+
+bool endGame(const Map & map, const Zombie * zombie)
+{
+    if (map.IsNonPlant())
+    {
+        cout << endl << "Oh no... You have no plant on the map ...." << endl;
+        return true;
+    }
+    else if (BombPlant::deadNum > Zombie::TotalNum/2)
+    {
+        cout << endl << "You lose the game since you cannot use that many bomb plants!" << endl;
+        return true;
+    }
+    else if (allZombiesDie(zombie))
+    {
+        cout << endl << "Congratulations! You have killed all zombies!" << endl;
+        return true;
+    }
+    return false;
 }
 
 bool allZombiesDie(const Zombie * zombie)
