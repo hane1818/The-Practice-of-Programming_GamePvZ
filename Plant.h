@@ -49,7 +49,7 @@ public:
     }
     virtual const int Round() const { return round_-roundtimes_; }
     virtual int Visit(Player &p);
-    virtual Plant* New() const { return new CoinPlant(*this); }
+    virtual Plant* New() { return new CoinPlant(*this); }
 private:
     int roundtimes_=0;
     int round_=0;
@@ -73,7 +73,7 @@ public:
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<damage_<<" damage points";
     }
     virtual int Visit(Zombie &z);
-    virtual Plant* New() const {return new HornPlant(*this);}
+    virtual Plant* New() {return new HornPlant(*this);}
 private:
     int damage_=0;//attack zombie
 };
@@ -95,7 +95,7 @@ public:
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives "<<hp_<<" damage points";
     }
     virtual int Visit(Zombie &z);
-    virtual Plant* New() const {return new BombPlant(*this);}
+    virtual Plant* New() {return new BombPlant(*this);}
 };
 #endif // BombPlant_H_
 //==================================================================//
@@ -114,7 +114,7 @@ public:
         std::cout<<name_<<" $"<<price_<<" HP: "<<hp_<<" - gives all your plants "<<hpBack_<<" HP back.";
     }
     virtual int Visit(Player &p) { return -hpBack_; }
-    virtual Plant* New() const { return new HealPlant(*this); }
+    virtual Plant* New() { return new HealPlant(*this); }
 private:
     int hpBack_=0;
 };
