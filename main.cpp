@@ -230,13 +230,9 @@ int main()
                 system("cls");
             }
         }
+
         position = rand()%LANDS;
         player->Move(position);
-
-        // end game condition
-
-        system("cls");
-        //break;
     }
 
     // destruct
