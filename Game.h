@@ -9,11 +9,7 @@
 class Game
 {
 public:
-    Game(int lands, int zombies):numOfLand_(lands),
-                                 numOfZombie_(zombies),
-                                 player_(new Player),
-                                 zombie_(new Zombie[numOfZombie_]),
-                                 map_(new Map(numOfLand_));
+    Game(int lands, int zombies);
     ~Game();
     static constexpr int LAND_DEFAULT=8;
     static constexpr int LAND_MAX=10;

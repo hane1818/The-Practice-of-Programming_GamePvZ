@@ -1,55 +1,51 @@
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
+#include "Game.h"
 #include <cstdlib>
-#include"Plant.h"
-using namespace std;
+#include <ctime>
 
-int main()
+Game::Game(int lands, int zombies):numOfLand_(lands),numOfZombie_(zombies),
+                                   player_(new Player),zombie_(new Zombie[numOfZombie_]),map_(new Map(numOfLand_))
 {
-    vector<Plant*> plant;
-    fstream fin;
-    fin.open("plants.txt",fstream::in);
-    if(fin)
+    Map *m;
+    if(numOfLand_ < LAND_MIN)
     {
-        string str;
-        while(fin>>str)
-        {
-            Plant*tmp=nullptr;
-            switch(str[0])
-            {
-            case 'C':
-                tmp = new CoinPlant(fin);
-                break;
-            case 'S':
-                tmp = new HornPlant(fin);
-                break;
-            case 'B':
-                tmp = new BombPlant(fin);
-                break;
-            case 'H':
-                tmp = new HealPlant(fin);
-                break;
-            default:
-                break;
-            }
-            if(tmp)
-            {
-                plant.push_back(tmp);
-            }
-        }
+        numOfLand_=LAND_MIN;
+        m=new Map(numOfLand_);
+        delete map_;
+        map_=m;
     }
-    for(int i=0; i<4; ++i)
+    else if (numOfLand_ > LAND_MAX)
     {
-        cout<<*plant[i]<<" *****"<<endl;
-        plant[i]->Print();
-        cout<<endl;
+        numOfLand_=LAND_MAX;
+        m=new Map(numOfLand_);
+        delete map_;
+        map_=m;
     }
-    while(!plant.empty())
+
+    Zombie *z;
+    if(numOfZombie_ < ZOMBIE_MIN)
     {
-        delete plant.back();
-        plant.pop_back();
+        numOfZombie_=ZOMBIE_MIN;
+        z=new Zombie[numOfZombie_];
+        delete [] zombie_;
+        zombie_=z;
     }
-    return 0;
+    else if (numOfZombie_ > ZOMBIE_MAX)
+    {
+        numOfZombie_=ZOMBIE_MAX;
+        z=new Zombie[numOfZombie_];
+        delete [] zombie_;
+        zombie_=z;
+    }
+}
+
+Game::~Game()
+{
+    delete player_;
+    delete [] zombie_;
+    delete map_;
+    while(!plant_.empty())
+    {
+        delete plant_.back();
+        plant_.pop_back();
+    }
 }
